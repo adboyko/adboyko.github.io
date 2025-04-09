@@ -768,8 +768,9 @@
             this.currentInput = '';
             this.updateInputDisplay();
             
-            // Scroll to bottom of terminal
-            this.inputLine.scrollIntoView();
+            // Scroll only within the terminal container
+            const terminalContainer = document.querySelector('.terminal');
+            terminalContainer.scrollTop = terminalContainer.scrollHeight;
         },
         
         // List directory contents
