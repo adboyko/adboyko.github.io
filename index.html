@@ -794,14 +794,17 @@
                         
                         // Set up custom stdout to capture print statements
                         const terminal = this;
+                        
+                        // Make terminal object available to Pyodide
+                        window.terminalObj = this;
+                        
                         this.pyodide.runPython(`
                             import sys
                             import io
-                            import js
+                            from js import terminalObj
                             
                             class WebTerminal(io.TextIOBase):
-                                def __init__(self, terminal_obj):
-                                    self.terminal = terminal_obj
+                                def __init__(self):
                                     self.buffer = ""
                                 
                                 def write(self, text):
@@ -809,7 +812,7 @@
                                     if '\\n' in text:
                                         lines = self.buffer.split('\\n')
                                         for line in lines[:-1]:
-                                            self.terminal.addLine(line)
+                                            terminalObj.addLine(line)
                                         self.buffer = lines[-1]
                                     return len(text)
                                 
@@ -817,26 +820,23 @@
                                     # This will be handled by our custom input function
                                     return ""
                             
-                            sys.stdout = WebTerminal(js.terminal)
-                            sys.stderr = WebTerminal(js.terminal)
-                        `, { terminal: this });
+                            sys.stdout = WebTerminal()
+                            sys.stderr = WebTerminal()
+                        `);
                         
                         this.addLine('Python interpreter ready! (Powered by Pyodide)');
                         this.addLine('Type Python code directly, or "exit()" to return to shell');
                         this.pythonMode = true;
                         this.updatePrompt('>>> ');
                         
-                        // Set up a flag for when we're waiting for input
-                        this.waitingForPythonInput = false;
-                        this.pythonInputCallback = null;
                         // Override the built-in input function
                         this.pyodide.runPython(`
-                            import js
+                            from js import terminalObj
                             
                             def custom_input(prompt=""):
                                 if prompt:
                                     sys.stdout.write(prompt)
-                                return js.terminal.handlePythonInput()
+                                return terminalObj.handlePythonInput()
                             
                             __builtins__.input = custom_input
                         `);
