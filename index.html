@@ -128,7 +128,7 @@
             position: absolute;
             height: 3px;
             background-color: #8892b0;
-            transform-origin: 0 0;
+            transform-origin: left center;
             z-index: 5;
         }
 
@@ -423,24 +423,6 @@
             </div>
         </section>
         
-        <section id="simple-network-simulation">
-            <h2>Network Packet Simulation</h2>
-            <p class="text-center">Send a packet from Router A to Router B</p>
-            <div class="simple-network-viz">
-                <div class="connection-line"></div>
-                <div class="router router-a">A</div>
-                <div class="router router-b">B</div>
-                <div class="simple-packet" id="simple-packet"></div>
-            </div>
-            <div class="text-center">
-                <button class="btn" id="send-simple-packet">Send Packet</button>
-                <button class="btn" id="reset-simple-packet">Reset</button>
-            </div>
-            <div id="packet-info" class="text-center">
-                <p>Packet status: Ready to send</p>
-            </div>
-        </section>
-        
         <section id="network-simulation">
             <h2>Network Topology Simulation</h2>
             <p class="text-center">Interactive network simulation with multiple nodes and protocols</p>
@@ -633,8 +615,9 @@
                 nodeEl.className = `node node-${node.type}`;
                 nodeEl.id = node.id;
                 nodeEl.textContent = node.label;
-                nodeEl.style.left = `${node.x}%`;
-                nodeEl.style.top = `${node.y}%`;
+                // Position from center of the node
+                nodeEl.style.left = `calc(${node.x}% - 30px)`;  // 30px is half the width
+                nodeEl.style.top = `calc(${node.y}% - 30px)`;   // 30px is half the height
                 
                 // Add tooltip info
                 nodeEl.addEventListener('mouseenter', (e) => {
@@ -650,7 +633,6 @@
                 
                 networkViz.appendChild(nodeEl);
             });
-            
             // Create connections
             connections.forEach(conn => {
                 const fromNode = nodes.find(n => n.id === conn.from);
@@ -669,9 +651,12 @@
                 const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
                 const angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
                 
+                // Position the connection at the center of the first node
                 connEl.style.width = `${length}%`;
                 connEl.style.left = `${x1}%`;
                 connEl.style.top = `${y1}%`;
+                connEl.style.transformOrigin = '0 0';
+                connEl.style.transform = `rotate(${angle}deg)`;
                 connEl.style.transform = `rotate(${angle}deg)`;
                 
                 // Add tooltip info
