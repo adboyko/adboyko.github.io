@@ -407,66 +407,499 @@
         
         <section id="terminal-intro" class="terminal">
             <div class="terminal-header">
-                <div class="terminal-button"></div>
-                <div class="terminal-button"></div>
-                <div class="terminal-button"></div>
+            <div class="terminal-button"></div>
+            <div class="terminal-button"></div>
+            <div class="terminal-button"></div>
             </div>
-            <div class="terminal-text">
-                <p><span class="prompt">$</span> whoami</p>
-                <p>network_engineer | cloud_architect | python_developer</p>
-                <p><span class="prompt">$</span> cd profile</p>
-                <p><span class="prompt">$</span> ls</p>
-                <p>internetworking.py  cloud.yml  python_projects/  networking_tools/</p>
-                <p><span class="prompt">$</span> cat welcome.txt</p>
-                <p>Welcome to my personal page! Feel free to explore and connect.</p>
-                <p><span class="prompt">$</span> <span class="blink">_</span></p>
+            <div class="terminal-text" id="terminal-output">
+            <p>Welcome to the interactive terminal. Type 'help' for available commands.</p>
+            <p><span class="prompt">$</span> whoami</p>
+            <p>network_engineer | cloud_architect | python_developer</p>
+            <div id="terminal-lines"></div>
+            <div id="input-line">
+                <span class="prompt">$</span> <span id="command-input"></span><span class="blink" id="cursor">_</span>
+            </div>
             </div>
         </section>
         
-        <section id="network-simulation">
+        <section id="network-simulation" style="display: none;">
             <h2>Network Topology Simulation</h2>
             <p class="text-center">Interactive network simulation with multiple nodes and protocols</p>
             <div class="network-viz" id="network-viz">
-                <!-- Nodes and connections will be added via JavaScript -->
-                <div id="tooltip" class="tooltip"></div>
+            <!-- Nodes and connections will be added via JavaScript -->
+            <div id="tooltip" class="tooltip"></div>
             </div>
             
             <div class="network-controls">
-                <button class="btn" id="send-tcp">Send TCP Packet</button>
-                <button class="btn" id="send-udp">Send UDP Packet</button>
-                <button class="btn" id="simulate-error">Simulate Error</button>
-                <button class="btn" id="reset-network">Reset Network</button>
+            <button class="btn" id="send-tcp">Send TCP Packet</button>
+            <button class="btn" id="send-udp">Send UDP Packet</button>
+            <button class="btn" id="simulate-error">Simulate Error</button>
+            <button class="btn" id="reset-network">Reset Network</button>
             </div>
             
             <div class="checkbox-container">
-                <input type="checkbox" id="auto-traffic" name="auto-traffic">
-                <label for="auto-traffic">Simulate background traffic</label>
+            <input type="checkbox" id="auto-traffic" name="auto-traffic">
+            <label for="auto-traffic">Simulate background traffic</label>
             </div>
             
             <div class="stat-panel" id="network-stats">
-                <h3>Network Statistics</h3>
-                <div class="stat-row">
-                    <span>Packets Sent:</span>
-                    <span id="packets-sent">0</span>
-                </div>
-                <div class="stat-row">
-                    <span>Packets Received:</span>
-                    <span id="packets-received">0</span>
-                </div>
-                <div class="stat-row">
-                    <span>Packet Loss:</span>
-                    <span id="packet-loss">0%</span>
-                </div>
-                <div class="stat-row">
-                    <span>Average Latency:</span>
-                    <span id="avg-latency">0ms</span>
-                </div>
-                <div class="stat-row">
-                    <span>Network Load:</span>
-                    <span id="network-load">Low</span>
-                </div>
+            <h3>Network Statistics</h3>
+            <div class="stat-row">
+                <span>Packets Sent:</span>
+                <span id="packets-sent">0</span>
+            </div>
+            <div class="stat-row">
+                <span>Packets Received:</span>
+                <span id="packets-received">0</span>
+            </div>
+            <div class="stat-row">
+                <span>Packet Loss:</span>
+                <span id="packet-loss">0%</span>
+            </div>
+            <div class="stat-row">
+                <span>Average Latency:</span>
+                <span id="avg-latency">0ms</span>
+            </div>
+            <div class="stat-row">
+                <span>Network Load:</span>
+                <span id="network-load">Low</span>
+            </div>
             </div>
         </section>
+
+    <script>
+    // Terminal emulator implementation
+    document.addEventListener('DOMContentLoaded', function() {
+        const terminal = {
+        currentDir: '~',
+        commandInput: document.getElementById('command-input'),
+        terminalLines: document.getElementById('terminal-lines'),
+        inputLine: document.getElementById('input-line'),
+        cursor: document.getElementById('cursor'),
+        currentInput: '',
+        commandHistory: [],
+        historyIndex: -1,
+        tabCompletionOptions: [],
+        tabCompletionIndex: -1,
+        
+        // Mock file system
+        fileSystem: {
+            '~': {
+            type: 'dir',
+            children: {
+                'profile': {
+                type: 'dir',
+                children: {
+                    'internetworking.py': {
+                    type: 'file',
+                    content: '# Network Infrastructure Management Tool\n\nimport networkx as nx\n\nclass NetworkTopology:\n    def __init__(self):\n        self.graph = nx.Graph()\n        \n    def add_node(self, name, type="router"):\n        self.graph.add_node(name, type=type)\n        \n    def connect(self, node1, node2, bandwidth="1Gbps"):\n        self.graph.add_edge(node1, node2, bandwidth=bandwidth)\n        \n# Example usage\ntopo = NetworkTopology()\ntopo.add_node("R1")\ntopo.add_node("R2")\ntopo.connect("R1", "R2")'
+                    },
+                    'cloud.yml': {
+                    type: 'file',
+                    content: 'AWSTemplateFormatVersion: "2010-09-09"\nDescription: "Cloud infrastructure with auto-scaling web servers"\n\nResources:\n  VPC:\n    Type: AWS::EC2::VPC\n    Properties:\n      CidrBlock: 10.0.0.0/16\n      EnableDnsSupport: true\n      EnableDnsHostnames: true\n      Tags:\n        - Key: Name\n          Value: MainVPC'
+                    },
+                    'welcome.txt': {
+                    type: 'file',
+                    content: 'Welcome to my personal page! Feel free to explore and connect.\n\nI\'m passionate about network engineering, cloud infrastructure, and Python development.\n\nUse the interactive terminal to learn more about my work, or type "network-mock-sim" to explore the network simulation.'
+                    },
+                    'python_projects': {
+                    type: 'dir',
+                    children: {
+                        'automation.py': {
+                        type: 'file',
+                        content: '#!/usr/bin/env python\n\nfrom netmiko import ConnectHandler\nimport yaml\nimport logging\n\n# Load device inventory\nwith open("inventory.yml", "r") as f:\n    inventory = yaml.safe_load(f)\n    \nfor device in inventory["devices"]:\n    connection = ConnectHandler(**device)\n    output = connection.send_command("show version")\n    print(f"Connected to {device[\'ip\']}\\n{output}")\n    connection.disconnect()'
+                        },
+                        'data_analysis.py': {
+                        type: 'file',
+                        content: 'import pandas as pd\nimport matplotlib.pyplot as plt\n\n# Network traffic analysis\ndata = pd.read_csv("network_traffic.csv")\n\n# Calculate statistics\ntotal_traffic = data["bytes"].sum() / (1024**3)  # Convert to GB\npeak_time = data.loc[data["bytes"].idxmax()]["timestamp"]\n\nprint(f"Total traffic: {total_traffic:.2f} GB")\nprint(f"Peak time: {peak_time}")\n\n# Create visualization\nplt.figure(figsize=(10, 6))\nplt.plot(data["timestamp"], data["bytes"] / (1024**2))\nplt.title("Network Traffic Over Time")\nplt.xlabel("Time")\nplt.ylabel("Traffic (MB)")\nplt.grid(True)\nplt.savefig("network_traffic.png")'
+                        }
+                    }
+                    },
+                    'networking_tools': {
+                    type: 'dir',
+                    children: {
+                        'subnet_calculator.py': {
+                        type: 'file',
+                        content: 'import ipaddress\n\ndef subnet_info(cidr):\n    """Calculate subnet information from CIDR notation"""\n    net = ipaddress.IPv4Network(cidr, strict=False)\n    return {\n        "network": str(net.network_address),\n        "broadcast": str(net.broadcast_address),\n        "netmask": str(net.netmask),\n        "num_addresses": net.num_addresses,\n        "hosts": net.num_addresses - 2  # Exclude network and broadcast\n    }\n\n# Example usage\ncidr = input("Enter CIDR (e.g., 192.168.1.0/24): ")\ninfo = subnet_info(cidr)\n\nfor key, value in info.items():\n    print(f"{key}: {value}")'
+                        },
+                        'network-mock-sim': {
+                        type: 'file',
+                        content: '#!/bin/bash\n\n# This script launches a network simulation\necho "Starting network simulation..."\necho "Initializing nodes..."\necho "Loading topology..."\necho "Ready!"\n\n# In a real environment, this would launch the simulation'
+                        }
+                    }
+                    }
+                }
+                },
+                'README.md': {
+                type: 'file',
+                content: '# Personal Profile\n\nThis is my personal profile showcasing my work in network engineering, cloud infrastructure, and software development.\n\n## Skills\n\n- Network Engineering (OSPF, BGP, MPLS)\n- Cloud Infrastructure (AWS, Azure)\n- Python Development\n- Automation & CI/CD\n\nExplore the directories to learn more about my projects and interests.'
+                }
+            }
+            }
+        },
+        
+        // Get current directory object
+        getCurrentDirectory: function() {
+            let path = this.currentDir.split('/');
+            let current = this.fileSystem['~'];
+            
+            if (this.currentDir === '~') return current;
+            
+            for (let i = 1; i < path.length; i++) {
+            if (path[i] === '') continue;
+            current = current.children[path[i]];
+            if (!current) return null;
+            }
+            return current;
+        },
+        
+        // Get object at a specific path
+        getObjectAtPath: function(path) {
+            if (path === '~' || path === '/' || path === '') return this.fileSystem['~'];
+            
+            if (path.startsWith('~')) {
+            path = path.substring(1);
+            if (path.startsWith('/')) path = path.substring(1);
+            let current = this.fileSystem['~'];
+            if (!path) return current;
+            
+            const parts = path.split('/');
+            for (const part of parts) {
+                if (!part) continue;
+                if (!current.children || !current.children[part]) return null;
+                current = current.children[part];
+            }
+            return current;
+            } else if (path.startsWith('/')) {
+            // Absolute path
+            return null; // For simplicity, we'll just implement relative paths
+            } else {
+            // Relative path
+            let current = this.getCurrentDirectory();
+            const parts = path.split('/');
+            for (const part of parts) {
+                if (part === '.') continue;
+                if (part === '..') {
+                if (this.currentDir === '~') continue;
+                const dirParts = this.currentDir.split('/');
+                dirParts.pop();
+                this.currentDir = dirParts.join('/') || '~';
+                current = this.getCurrentDirectory();
+                continue;
+                }
+                if (!current.children || !current.children[part]) return null;
+                current = current.children[part];
+            }
+            return current;
+            }
+        },
+        
+        // Initialize terminal
+        init: function() {
+            document.addEventListener('keydown', this.handleKeyDown.bind(this));
+            document.addEventListener('click', () => {
+            this.commandInput.focus();
+            });
+        },
+        
+        // Handle key presses
+        handleKeyDown: function(e) {
+            if (e.key === 'Enter') {
+            this.executeCommand();
+            } else if (e.key === 'Backspace') {
+            if (this.currentInput.length > 0) {
+                this.currentInput = this.currentInput.slice(0, -1);
+                this.updateInputDisplay();
+            }
+            e.preventDefault();
+            } else if (e.key === 'ArrowUp') {
+            if (this.commandHistory.length > 0 && this.historyIndex < this.commandHistory.length - 1) {
+                this.historyIndex++;
+                this.currentInput = this.commandHistory[this.commandHistory.length - 1 - this.historyIndex];
+                this.updateInputDisplay();
+            }
+            e.preventDefault();
+            } else if (e.key === 'ArrowDown') {
+            if (this.historyIndex > 0) {
+                this.historyIndex--;
+                this.currentInput = this.commandHistory[this.commandHistory.length - 1 - this.historyIndex];
+                this.updateInputDisplay();
+            } else if (this.historyIndex === 0) {
+                this.historyIndex = -1;
+                this.currentInput = '';
+                this.updateInputDisplay();
+            }
+            e.preventDefault();
+            } else if (e.key === 'Tab') {
+            this.handleTabCompletion();
+            e.preventDefault();
+            } else if (e.key.length === 1 && !e.ctrlKey && !e.altKey && !e.metaKey) {
+            this.currentInput += e.key;
+            this.updateInputDisplay();
+            e.preventDefault();
+            }
+        },
+        
+        // Handle tab completion
+        handleTabCompletion: function() {
+            const input = this.currentInput;
+            const parts = input.split(' ');
+            
+            // Only attempt tab completion if we have a partial path
+            if (parts.length > 0) {
+            const lastPart = parts[parts.length - 1];
+            
+            // For simplicity, only handle completion for the current directory
+            if (!this.tabCompletionOptions.length) {
+                const currentDir = this.getCurrentDirectory();
+                if (currentDir && currentDir.children) {
+                const matches = Object.keys(currentDir.children).filter(name => 
+                    name.startsWith(lastPart)
+                );
+                
+                if (matches.length === 1) {
+                    // Exact match
+                    parts[parts.length - 1] = matches[0];
+                    if (currentDir.children[matches[0]].type === 'dir') {
+                    parts[parts.length - 1] += '/';
+                    }
+                    this.currentInput = parts.join(' ');
+                    this.updateInputDisplay();
+                } else if (matches.length > 1) {
+                    // Multiple matches, save options for cycling
+                    this.tabCompletionOptions = matches;
+                    this.tabCompletionIndex = 0;
+                    parts[parts.length - 1] = this.tabCompletionOptions[0];
+                    this.currentInput = parts.join(' ');
+                    this.updateInputDisplay();
+                }
+                }
+            } else {
+                // Cycle through completion options
+                this.tabCompletionIndex = (this.tabCompletionIndex + 1) % this.tabCompletionOptions.length;
+                parts[parts.length - 1] = this.tabCompletionOptions[this.tabCompletionIndex];
+                const currentDir = this.getCurrentDirectory();
+                if (currentDir.children[this.tabCompletionOptions[this.tabCompletionIndex]].type === 'dir') {
+                parts[parts.length - 1] += '/';
+                }
+                this.currentInput = parts.join(' ');
+                this.updateInputDisplay();
+            }
+            }
+        },
+        
+        // Update the displayed input
+        updateInputDisplay: function() {
+            this.commandInput.textContent = this.currentInput;
+            // Reset tab completion if input changes
+            if (this.tabCompletionOptions.length > 0) {
+            this.tabCompletionOptions = [];
+            this.tabCompletionIndex = -1;
+            }
+        },
+        
+        // Add a new line to the terminal
+        addLine: function(text) {
+            const line = document.createElement('p');
+            line.textContent = text;
+            this.terminalLines.appendChild(line);
+        },
+        
+        // Execute the current command
+        executeCommand: function() {
+            const fullLine = document.createElement('p');
+            fullLine.innerHTML = `<span class="prompt">$</span> ${this.currentInput}`;
+            this.terminalLines.appendChild(fullLine);
+            
+            const parts = this.currentInput.trim().split(' ');
+            const command = parts[0];
+            const args = parts.slice(1);
+            
+            // Add to command history
+            if (this.currentInput.trim()) {
+            this.commandHistory.push(this.currentInput);
+            this.historyIndex = -1;
+            }
+            
+            // Process commands
+            switch (command) {
+            case '':
+                break;
+            case 'help':
+                this.addLine('Available commands:');
+                this.addLine('  ls       - List directory contents');
+                this.addLine('  cd       - Change directory');
+                this.addLine('  cat      - View file contents');
+                this.addLine('  clear    - Clear terminal');
+                this.addLine('  whoami   - Display user info');
+                this.addLine('  pwd      - Print working directory');
+                this.addLine('  help     - Show this help info');
+                this.addLine('  network-mock-sim - Run network simulation');
+                break;
+            case 'ls':
+                this.listDirectory(args[0] || '.');
+                break;
+            case 'cd':
+                this.changeDirectory(args[0] || '~');
+                break;
+            case 'cat':
+                if (args.length === 0) {
+                this.addLine('Usage: cat <filename>');
+                } else {
+                this.catFile(args[0]);
+                }
+                break;
+            case 'clear':
+                this.clearTerminal();
+                break;
+            case 'pwd':
+                this.addLine(this.currentDir);
+                break;
+            case 'whoami':
+                this.addLine('network_engineer | cloud_architect | python_developer');
+                break;
+            case 'network-mock-sim':
+                this.runNetworkSim();
+                break;
+            default:
+                this.addLine(`Command not found: ${command}`);
+            }
+            
+            this.currentInput = '';
+            this.updateInputDisplay();
+            
+            // Scroll to bottom of terminal
+            this.inputLine.scrollIntoView();
+        },
+        
+        // List directory contents
+        listDirectory: function(dir) {
+            const targetDir = this.getObjectAtPath(dir);
+            if (!targetDir) {
+            this.addLine(`ls: cannot access '${dir}': No such file or directory`);
+            return;
+            }
+            if (targetDir.type !== 'dir') {
+            this.addLine(`ls: cannot list '${dir}': Not a directory`);
+            return;
+            }
+            
+            // List children
+            const output = [];
+            for (const [name, obj] of Object.entries(targetDir.children)) {
+            if (obj.type === 'dir') {
+                output.push(`<span style="color: #64ffda;">${name}/</span>`);
+            } else {
+                output.push(name);
+            }
+            }
+            
+            if (output.length === 0) {
+            this.addLine('(empty directory)');
+            } else {
+            const line = document.createElement('p');
+            line.innerHTML = output.join('  ');
+            this.terminalLines.appendChild(line);
+            }
+        },
+        
+        // Change directory
+        changeDirectory: function(dir) {
+            if (dir === '~') {
+            this.currentDir = '~';
+            return;
+            }
+            
+            if (dir === '.') {
+            return;
+            }
+            
+            if (dir === '..') {
+            if (this.currentDir === '~') return;
+            const parts = this.currentDir.split('/');
+            parts.pop();
+            this.currentDir = parts.join('/') || '~';
+            return;
+            }
+            
+            // Handle relative path
+            let targetPath = dir;
+            if (!dir.startsWith('/') && !dir.startsWith('~')) {
+            targetPath = this.currentDir === '~' ? 
+                `~/${dir}` : `${this.currentDir}/${dir}`;
+            }
+            
+            const targetDir = this.getObjectAtPath(targetPath);
+            if (!targetDir) {
+            this.addLine(`cd: ${dir}: No such file or directory`);
+            return;
+            }
+            
+            if (targetDir.type !== 'dir') {
+            this.addLine(`cd: ${dir}: Not a directory`);
+            return;
+            }
+            
+            // Update current directory
+            if (dir.startsWith('~')) {
+            this.currentDir = dir;
+            } else if (dir.startsWith('/')) {
+            this.currentDir = dir;
+            } else {
+            this.currentDir = this.currentDir === '~' ? 
+                `~/${dir}` : `${this.currentDir}/${dir}`;
+            }
+        },
+        
+        // Display file contents
+        catFile: function(filename) {
+            const target = this.getObjectAtPath(filename);
+            if (!target) {
+            this.addLine(`cat: ${filename}: No such file or directory`);
+            return;
+            }
+            
+            if (target.type !== 'file') {
+            this.addLine(`cat: ${filename}: Is a directory`);
+            return;
+            }
+            
+            // Show file contents with line breaks
+            const lines = target.content.split('\n');
+            lines.forEach(line => this.addLine(line));
+        },
+        
+        // Clear the terminal
+        clearTerminal: function() {
+            this.terminalLines.innerHTML = '';
+        },
+        
+        // Run network simulation
+        runNetworkSim: function() {
+            this.addLine('Starting network simulation...');
+            this.addLine('Initializing nodes...');
+            this.addLine('Loading topology...');
+            this.addLine('Ready!');
+            
+            // Show the network simulation section
+            setTimeout(() => {
+            document.getElementById('network-simulation').style.display = 'block';
+            document.getElementById('network-simulation').scrollIntoView({
+                behavior: 'smooth'
+            });
+            
+            // Reinitialize the network simulation if needed
+            if (typeof initNetworkSimulation === 'function') {
+                initNetworkSimulation();
+            }
+            }, 1000);
+        }
+        };
+        
+        // Initialize terminal
+        terminal.init();
+    });
+    </script>
         
         <section id="about">
             <h2>About Me</h2>
@@ -505,7 +938,7 @@
         </section>
         
         <footer>
-            <p>&copy; 2023 | Built with <i class="fas fa-heart" style="color: #64ffda;"></i> and a lot of packets</p>
+            <p>&copy; <script>document.write(new Date().getFullYear())</script> | Built with <i class="fas fa-heart" style="color: #64ffda;"></i> and a lot of packets</p>
         </footer>
     </div>
 
