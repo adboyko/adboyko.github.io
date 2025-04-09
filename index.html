@@ -717,52 +717,56 @@
             
             // Add to command history
             if (this.currentInput.trim()) {
-            this.commandHistory.push(this.currentInput);
-            this.historyIndex = -1;
+                this.commandHistory.push(this.currentInput);
+                this.historyIndex = -1;
             }
             
             // Process commands
             switch (command) {
-            case '':
-                break;
-            case 'help':
-                this.addLine('Available commands:');
-                this.addLine('  ls       - List directory contents');
-                this.addLine('  cd       - Change directory');
-                this.addLine('  cat      - View file contents');
-                this.addLine('  clear    - Clear terminal');
-                this.addLine('  whoami   - Display user info');
-                this.addLine('  pwd      - Print working directory');
-                this.addLine('  help     - Show this help info');
-                this.addLine('  network-mock-sim - Run network simulation');
-                break;
-            case 'ls':
-                this.listDirectory(args[0] || '.');
-                break;
-            case 'cd':
-                this.changeDirectory(args[0] || '~');
-                break;
-            case 'cat':
-                if (args.length === 0) {
-                this.addLine('Usage: cat <filename>');
-                } else {
-                this.catFile(args[0]);
-                }
-                break;
-            case 'clear':
-                this.clearTerminal();
-                break;
-            case 'pwd':
-                this.addLine(this.currentDir);
-                break;
-            case 'whoami':
-                this.addLine('network_engineer | cloud_architect | python_developer');
-                break;
-            case 'network-mock-sim':
-                this.runNetworkSim();
-                break;
-            default:
-                this.addLine(`Command not found: ${command}`);
+                case '':
+                    break;
+                case 'help':
+                    this.addLine('Available commands:');
+                    this.addLine('  ls       - List directory contents');
+                    this.addLine('  cd       - Change directory');
+                    this.addLine('  cat      - View file contents');
+                    this.addLine('  clear    - Clear terminal');
+                    this.addLine('  whoami   - Display user info');
+                    this.addLine('  pwd      - Print working directory');
+                    this.addLine('  help     - Show this help info');
+                    this.addLine('  python   - Start Python interpreter');
+                    this.addLine('  network-mock-sim - Run network simulation');
+                    break;
+                case 'ls':
+                    this.listDirectory(args[0] || '.');
+                    break;
+                case 'cd':
+                    this.changeDirectory(args[0] || '~');
+                    break;
+                case 'cat':
+                    if (args.length === 0) {
+                        this.addLine('Usage: cat <filename>');
+                    } else {
+                        this.catFile(args[0]);
+                    }
+                    break;
+                case 'clear':
+                    this.clearTerminal();
+                    break;
+                case 'pwd':
+                    this.addLine(this.currentDir);
+                    break;
+                case 'whoami':
+                    this.addLine('network_engineer | cloud_architect | python_developer');
+                    break;
+                case 'python':
+                    this.startPythonMode();
+                    break;
+                case 'network-mock-sim':
+                    this.runNetworkSim();
+                    break;
+                default:
+                    this.addLine(`Command not found: ${command}`);
             }
             
             this.currentInput = '';
@@ -771,6 +775,113 @@
             // Scroll only within the terminal container
             const terminalContainer = document.querySelector('.terminal');
             terminalContainer.scrollTop = terminalContainer.scrollHeight;
+        },
+
+        // New method to handle Python mode
+        startPythonMode: function() {
+            // Check if Pyodide is already loaded
+            if (!window.loadPyodide) {
+                this.addLine('Loading Python interpreter...');
+                
+                // Add Pyodide script
+                const script = document.createElement('script');
+                script.src = 'https://cdn.jsdelivr.net/pyodide/v0.22.1/full/pyodide.js';
+                document.head.appendChild(script);
+                
+                script.onload = async () => {
+                    try {
+                        this.pyodide = await loadPyodide();
+                        this.addLine('Python interpreter ready! (Powered by Pyodide)');
+                        this.addLine('Type Python code directly, or "exit()" to return to shell');
+                        this.pythonMode = true;
+                        this.updatePrompt('>>> ');
+                    } catch (err) {
+                        this.addLine(`Failed to load Python: ${err.message}`);
+                    }
+                };
+                
+                script.onerror = () => {
+                    this.addLine('Failed to load Python interpreter. Check your connection.');
+                };
+            } else if (this.pyodide) {
+                // Pyodide already loaded
+                this.addLine('Python interpreter ready! (Powered by Pyodide)');
+                this.addLine('Type Python code directly, or "exit()" to return to shell');
+                this.pythonMode = true;
+                this.updatePrompt('>>> ');
+            }
+        },
+
+        // Method to execute Python code
+        executePython: async function(code) {
+            if (code.trim() === 'exit()') {
+                this.pythonMode = false;
+                this.updatePrompt('$ ');
+                this.addLine('Exited Python interpreter');
+                return;
+            }
+            
+            try {
+                const result = await this.pyodide.runPythonAsync(code);
+                if (result !== undefined) {
+                    this.addLine(result.toString());
+                }
+            } catch (err) {
+                this.addLine(`Error: ${err.message}`);
+            }
+        },
+
+        // Update the prompt display
+        updatePrompt: function(prompt) {
+            const promptElements = document.querySelectorAll('.prompt');
+            if (promptElements.length > 0) {
+                const lastPrompt = promptElements[promptElements.length - 1];
+                lastPrompt.textContent = prompt;
+            }
+        },
+
+        // Modify handleKeyDown to handle Python mode
+        handleKeyDown: function(e) {
+            if (e.key === 'Enter') {
+                if (this.pythonMode) {
+                    this.addLine(`>>> ${this.currentInput}`);
+                    this.executePython(this.currentInput);
+                } else {
+                    this.executeCommand();
+                }
+            } else if (e.key === 'Backspace') {
+                if (this.currentInput.length > 0) {
+                    this.currentInput = this.currentInput.slice(0, -1);
+                    this.updateInputDisplay();
+                }
+                e.preventDefault();
+            } else if (e.key === 'ArrowUp') {
+                if (this.commandHistory.length > 0 && this.historyIndex < this.commandHistory.length - 1) {
+                    this.historyIndex++;
+                    this.currentInput = this.commandHistory[this.commandHistory.length - 1 - this.historyIndex];
+                    this.updateInputDisplay();
+                }
+                e.preventDefault();
+            } else if (e.key === 'ArrowDown') {
+                if (this.historyIndex > 0) {
+                    this.historyIndex--;
+                    this.currentInput = this.commandHistory[this.commandHistory.length - 1 - this.historyIndex];
+                    this.updateInputDisplay();
+                } else if (this.historyIndex === 0) {
+                    this.historyIndex = -1;
+                    this.currentInput = '';
+                    this.updateInputDisplay();
+                }
+                e.preventDefault();
+            } else if (e.key === 'Tab') {
+                this.handleTabCompletion();
+                e.preventDefault();
+            } else if (e.key.length === 1 && !e.ctrlKey && !e.altKey && !e.metaKey) {
+                this.currentInput += e.key;
+                this.updateInputDisplay();
+                e.preventDefault();
+            }
+        },
         },
         
         // List directory contents
