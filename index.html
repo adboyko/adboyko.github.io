@@ -781,80 +781,122 @@
         startPythonMode: function() {
             // Check if Pyodide is already loaded
             if (!window.loadPyodide) {
-                this.addLine('Loading Python interpreter...');
+            this.addLine('Loading Python interpreter...');
+            
+            // Add Pyodide script
+            const script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/pyodide/v0.22.1/full/pyodide.js';
+            document.head.appendChild(script);
+            
+            script.onload = async () => {
+                try {
+                this.pyodide = await loadPyodide();
                 
-                // Add Pyodide script
-                const script = document.createElement('script');
-                script.src = 'https://cdn.jsdelivr.net/pyodide/v0.22.1/full/pyodide.js';
-                document.head.appendChild(script);
+                // Set up custom stdout to capture print statements
+                const terminal = this;
                 
-                script.onload = async () => {
-                    try {
-                        this.pyodide = await loadPyodide();
-                        
-                        // Set up custom stdout to capture print statements
-                        const terminal = this;
-                        
-                        // Make terminal object available to Pyodide
-                        window.terminalObj = this;
-                        
-                        this.pyodide.runPython(`
-                            import sys
-                            import io
-                            from js import terminalObj
-                            
-                            class WebTerminal(io.TextIOBase):
-                                def __init__(self):
-                                    self.buffer = ""
-                                
-                                def write(self, text):
-                                    self.buffer += text
-                                    if '\\n' in text:
-                                        lines = self.buffer.split('\\n')
-                                        for line in lines[:-1]:
-                                            terminalObj.addLine(line)
-                                        self.buffer = lines[-1]
-                                    return len(text)
-                                
-                                def readline(self):
-                                    # This will be handled by our custom input function
-                                    return ""
-                            
-                            sys.stdout = WebTerminal()
-                            sys.stderr = WebTerminal()
-                        `);
-                        
-                        this.addLine('Python interpreter ready! (Powered by Pyodide)');
-                        this.addLine('Type Python code directly, or "exit()" to return to shell');
-                        this.pythonMode = true;
-                        this.updatePrompt('>>> ');
-                        
-                        // Override the built-in input function
-                        this.pyodide.runPython(`
-                            from js import terminalObj
-                            
-                            def custom_input(prompt=""):
-                                if prompt:
-                                    sys.stdout.write(prompt)
-                                return terminalObj.handlePythonInput()
-                            
-                            __builtins__.input = custom_input
-                        `);
-                        
-                    } catch (err) {
-                        this.addLine(`Failed to load Python: ${err.message}`);
-                    }
-                };
+                // Make terminal object available to Pyodide
+                window.terminalObj = this;
                 
-                script.onerror = () => {
-                    this.addLine('Failed to load Python interpreter. Check your connection.');
-                };
-            } else if (this.pyodide) {
-                // Pyodide already loaded
+                this.pyodide.runPython(`
+                    import sys
+                    import io
+                    import pydoc
+                    from js import terminalObj
+                    
+                    class WebTerminal(io.TextIOBase):
+                    def __init__(self):
+                        self.buffer = ""
+                    
+                    def write(self, text):
+                        self.buffer += text
+                        if '\\n' in text:
+                        lines = self.buffer.split('\\n')
+                        for line in lines[:-1]:
+                            terminalObj.addLine(line)
+                        self.buffer = lines[-1]
+                        return len(text)
+                    
+                    def readline(self):
+                        # This will be handled by our custom input function
+                        return ""
+                    
+                    sys.stdout = WebTerminal()
+                    sys.stderr = WebTerminal()
+                    
+                    # Override pydoc's pager-related functions to avoid pagination issues
+                    def nopager(text):
+                    """Simple pager that just prints text directly to our custom stdout"""
+                    print(text)
+                    
+                    # Replace pydoc's pager
+                    pydoc.pager = nopager
+                    
+                    # Override the getpager function to always return our nopager
+                    def getpager():
+                    return nopager
+                    
+                    pydoc.getpager = getpager
+                    
+                    # Override the built-in help function to avoid pagination issues
+                    def simple_help(obj=None):
+                    if obj is None:
+                        print("Welcome to Python help. Type help(object) for help on a specific object.")
+                        return
+                    
+                    try:
+                        # Get help text without using interactive pagination
+                        help_text = pydoc.render_doc(obj, title=f"Help on {obj}")
+                        print(help_text)
+                    except Exception as e:
+                        print(f"Error: {e}")
+                    
+                    # Replace the built-in help
+                    __builtins__.help = simple_help
+                    
+                    # Override interact methods that might use pagination
+                    class NonInteractiveConsole:
+                    def __init__(self):
+                        pass
+                    def interact(self, *args, **kwargs):
+                        print("Interactive console not available in this environment.")
+                    def push(self, *args, **kwargs):
+                        pass
+                    
+                    pydoc.Helper.interact = lambda self: print("Interactive help not available. Use help(object) instead.")
+                `);
+                
                 this.addLine('Python interpreter ready! (Powered by Pyodide)');
                 this.addLine('Type Python code directly, or "exit()" to return to shell');
                 this.pythonMode = true;
                 this.updatePrompt('>>> ');
+                
+                // Override the built-in input function
+                this.pyodide.runPython(`
+                    from js import terminalObj
+                    
+                    def custom_input(prompt=""):
+                    if prompt:
+                        sys.stdout.write(prompt)
+                    return terminalObj.handlePythonInput()
+                    
+                    __builtins__.input = custom_input
+                `);
+                
+                } catch (err) {
+                this.addLine(`Failed to load Python: ${err.message}`);
+                }
+            };
+            
+            script.onerror = () => {
+                this.addLine('Failed to load Python interpreter. Check your connection.');
+            };
+            } else if (this.pyodide) {
+            // Pyodide already loaded
+            this.addLine('Python interpreter ready! (Powered by Pyodide)');
+            this.addLine('Type Python code directly, or "exit()" to return to shell');
+            this.pythonMode = true;
+            this.updatePrompt('>>> ');
             }
         },
 
