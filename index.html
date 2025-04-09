@@ -797,6 +797,7 @@
                         this.pyodide.runPython(`
                             import sys
                             import io
+                            import js
                             
                             class WebTerminal(io.TextIOBase):
                                 def __init__(self, terminal_obj):
@@ -828,9 +829,10 @@
                         // Set up a flag for when we're waiting for input
                         this.waitingForPythonInput = false;
                         this.pythonInputCallback = null;
-                        
                         // Override the built-in input function
                         this.pyodide.runPython(`
+                            import js
+                            
                             def custom_input(prompt=""):
                                 if prompt:
                                     sys.stdout.write(prompt)
