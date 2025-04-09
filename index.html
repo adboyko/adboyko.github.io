@@ -805,63 +805,63 @@
                     from js import terminalObj
                     
                     class WebTerminal(io.TextIOBase):
-                    def __init__(self):
-                        self.buffer = ""
-                    
-                    def write(self, text):
-                        self.buffer += text
-                        if '\\n' in text:
-                        lines = self.buffer.split('\\n')
-                        for line in lines[:-1]:
-                            terminalObj.addLine(line)
-                        self.buffer = lines[-1]
-                        return len(text)
-                    
-                    def readline(self):
-                        # This will be handled by our custom input function
-                        return ""
+                        def __init__(self):
+                            self.buffer = ""
+                        
+                        def write(self, text):
+                            self.buffer += text
+                            if '\\n' in text:
+                                lines = self.buffer.split('\\n')
+                                for line in lines[:-1]:
+                                    terminalObj.addLine(line)
+                                self.buffer = lines[-1]
+                            return len(text)
+                        
+                        def readline(self):
+                            # This will be handled by our custom input function
+                            return ""
                     
                     sys.stdout = WebTerminal()
                     sys.stderr = WebTerminal()
                     
                     # Override pydoc's pager-related functions to avoid pagination issues
                     def nopager(text):
-                    """Simple pager that just prints text directly to our custom stdout"""
-                    print(text)
+                        """Simple pager that just prints text directly to our custom stdout"""
+                        print(text)
                     
                     # Replace pydoc's pager
                     pydoc.pager = nopager
                     
                     # Override the getpager function to always return our nopager
                     def getpager():
-                    return nopager
+                        return nopager
                     
                     pydoc.getpager = getpager
                     
                     # Override the built-in help function to avoid pagination issues
                     def simple_help(obj=None):
-                    if obj is None:
-                        print("Welcome to Python help. Type help(object) for help on a specific object.")
-                        return
-                    
-                    try:
-                        # Get help text without using interactive pagination
-                        help_text = pydoc.render_doc(obj, title=f"Help on {obj}")
-                        print(help_text)
-                    except Exception as e:
-                        print(f"Error: {e}")
+                        if obj is None:
+                            print("Welcome to Python help. Type help(object) for help on a specific object.")
+                            return
+                        
+                        try:
+                            # Get help text without using interactive pagination
+                            help_text = pydoc.render_doc(obj, title=f"Help on {obj}")
+                            print(help_text)
+                        except Exception as e:
+                            print(f"Error: {e}")
                     
                     # Replace the built-in help
                     __builtins__.help = simple_help
                     
                     # Override interact methods that might use pagination
                     class NonInteractiveConsole:
-                    def __init__(self):
-                        pass
-                    def interact(self, *args, **kwargs):
-                        print("Interactive console not available in this environment.")
-                    def push(self, *args, **kwargs):
-                        pass
+                        def __init__(self):
+                            pass
+                        def interact(self, *args, **kwargs):
+                            print("Interactive console not available in this environment.")
+                        def push(self, *args, **kwargs):
+                            pass
                     
                     pydoc.Helper.interact = lambda self: print("Interactive help not available. Use help(object) instead.")
                 `);
