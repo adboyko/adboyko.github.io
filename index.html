@@ -876,9 +876,9 @@
                     from js import terminalObj
                     
                     def custom_input(prompt=""):
-                    if prompt:
-                        sys.stdout.write(prompt)
-                    return terminalObj.handlePythonInput()
+                        if prompt:
+                            sys.stdout.write(prompt)
+                        return terminalObj.handlePythonInput()
                     
                     __builtins__.input = custom_input
                 `);
