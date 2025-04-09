@@ -79,8 +79,135 @@
             text-align: center;
         }
 
-        /* Network Visualization */
+        /* Enhanced Network Visualization */
         .network-viz {
+            position: relative;
+            height: 400px;
+            background-color: #172a45;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 30px 0;
+            border: 1px solid #64ffda;
+            box-shadow: 0 0 10px rgba(100, 255, 218, 0.2);
+        }
+
+        .node {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background-color: #64ffda;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #0a192f;
+            box-shadow: 0 0 10px rgba(100, 255, 218, 0.5);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            z-index: 10;
+        }
+
+        .node:hover {
+            transform: scale(1.1);
+        }
+
+        .node-router {
+            border-radius: 15px;
+        }
+
+        .node-server {
+            background-color: #ffbd2e;
+        }
+
+        .node-client {
+            background-color: #a8b2d1;
+        }
+
+        .connection {
+            position: absolute;
+            height: 3px;
+            background-color: #8892b0;
+            transform-origin: 0 0;
+            z-index: 5;
+        }
+
+        .connection.active {
+            background-color: #64ffda;
+            box-shadow: 0 0 8px #64ffda;
+            animation: pulse 1s infinite;
+        }
+
+        .packet {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            z-index: 15;
+        }
+
+        .packet-data {
+            background-color: #ffffff;
+        }
+
+        .packet-tcp {
+            background-color: #64ffda;
+        }
+
+        .packet-udp {
+            background-color: #ffbd2e;
+        }
+
+        .packet-error {
+            background-color: #ff5f56;
+        }
+
+        .network-controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .stat-panel {
+            background-color: #172a45;
+            border: 1px solid #64ffda;
+            border-radius: 5px;
+            padding: 10px;
+            margin-top: 20px;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+
+        .tooltip {
+            position: absolute;
+            background-color: #0a192f;
+            border: 1px solid #64ffda;
+            padding: 10px;
+            border-radius: 5px;
+            color: #e6f1ff;
+            font-size: 0.8rem;
+            z-index: 100;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            max-width: 200px;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+
+        /* Simple network simulation */
+        .simple-network-viz {
             position: relative;
             height: 200px;
             background-color: #172a45;
@@ -136,7 +263,7 @@
             transform: translateY(-50%);
         }
 
-        .packet {
+        .simple-packet {
             position: absolute;
             width: 20px;
             height: 20px;
@@ -252,17 +379,22 @@
             animation: blink 1s infinite;
         }
 
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-
         footer {
             text-align: center;
             padding: 20px 0;
             background-color: #172a45;
             margin-top: 40px;
             border-top: 1px solid rgba(100, 255, 218, 0.3);
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
         }
     </style>
 </head>
@@ -291,21 +423,66 @@
             </div>
         </section>
         
-        <section id="network-simulation">
+        <section id="simple-network-simulation">
             <h2>Network Packet Simulation</h2>
             <p class="text-center">Send a packet from Router A to Router B</p>
-            <div class="network-viz">
+            <div class="simple-network-viz">
                 <div class="connection-line"></div>
                 <div class="router router-a">A</div>
                 <div class="router router-b">B</div>
-                <div class="packet" id="packet"></div>
+                <div class="simple-packet" id="simple-packet"></div>
             </div>
             <div class="text-center">
-                <button class="btn" id="send-packet">Send Packet</button>
-                <button class="btn" id="reset-packet">Reset</button>
+                <button class="btn" id="send-simple-packet">Send Packet</button>
+                <button class="btn" id="reset-simple-packet">Reset</button>
             </div>
             <div id="packet-info" class="text-center">
                 <p>Packet status: Ready to send</p>
+            </div>
+        </section>
+        
+        <section id="network-simulation">
+            <h2>Network Topology Simulation</h2>
+            <p class="text-center">Interactive network simulation with multiple nodes and protocols</p>
+            <div class="network-viz" id="network-viz">
+                <!-- Nodes and connections will be added via JavaScript -->
+                <div id="tooltip" class="tooltip"></div>
+            </div>
+            
+            <div class="network-controls">
+                <button class="btn" id="send-tcp">Send TCP Packet</button>
+                <button class="btn" id="send-udp">Send UDP Packet</button>
+                <button class="btn" id="simulate-error">Simulate Error</button>
+                <button class="btn" id="reset-network">Reset Network</button>
+            </div>
+            
+            <div class="checkbox-container">
+                <input type="checkbox" id="auto-traffic" name="auto-traffic">
+                <label for="auto-traffic">Simulate background traffic</label>
+            </div>
+            
+            <div class="stat-panel" id="network-stats">
+                <h3>Network Statistics</h3>
+                <div class="stat-row">
+                    <span>Packets Sent:</span>
+                    <span id="packets-sent">0</span>
+                </div>
+                <div class="stat-row">
+                    <span>Packets Received:</span>
+                    <span id="packets-received">0</span>
+                </div>
+                <div class="stat-row">
+                    <span>Packet Loss:</span>
+                    <span id="packet-loss">0%</span>
+                </div>
+                <div class="stat-row">
+                    <span>Average Latency:</span>
+                    <span id="avg-latency">0ms</span>
+                </div>
+                <div class="stat-row">
+                    <span>Network Load:</span>
+                    <span id="network-load">Low</span>
+                </div>
             </div>
         </section>
         
@@ -376,11 +553,11 @@
             });
         }
 
-        // Network simulation
-        function initNetworkSimulation() {
-            const sendButton = document.getElementById('send-packet');
-            const resetButton = document.getElementById('reset-packet');
-            const packet = document.getElementById('packet');
+        // Simple Network Simulation
+        function initSimpleNetworkSimulation() {
+            const sendButton = document.getElementById('send-simple-packet');
+            const resetButton = document.getElementById('reset-simple-packet');
+            const packet = document.getElementById('simple-packet');
             const packetInfo = document.getElementById('packet-info');
             
             sendButton.addEventListener('click', () => {
@@ -400,11 +577,352 @@
             });
         }
 
+        // Enhanced Network Simulation
+        function initNetworkSimulation() {
+            const networkViz = document.getElementById('network-viz');
+            const tcpButton = document.getElementById('send-tcp');
+            const udpButton = document.getElementById('send-udp');
+            const errorButton = document.getElementById('simulate-error');
+            const resetButton = document.getElementById('reset-network');
+            const autoTraffic = document.getElementById('auto-traffic');
+            const tooltip = document.getElementById('tooltip');
+            
+            // Stats elements
+            const packetsSent = document.getElementById('packets-sent');
+            const packetsReceived = document.getElementById('packets-received');
+            const packetLoss = document.getElementById('packet-loss');
+            const avgLatency = document.getElementById('avg-latency');
+            const networkLoad = document.getElementById('network-load');
+            
+            // Network stats
+            let stats = {
+                sent: 0,
+                received: 0,
+                loss: 0,
+                latencySum: 0,
+                latencyCount: 0,
+                autoTrafficInterval: null
+            };
+            
+            // Create network topology
+            const nodes = [
+                { id: 'client1', type: 'client', label: 'C1', x: 10, y: 30 },
+                { id: 'client2', type: 'client', label: 'C2', x: 10, y: 70 },
+                { id: 'router1', type: 'router', label: 'R1', x: 30, y: 50 },
+                { id: 'router2', type: 'router', label: 'R2', x: 50, y: 30 },
+                { id: 'router3', type: 'router', label: 'R3', x: 50, y: 70 },
+                { id: 'router4', type: 'router', label: 'R4', x: 70, y: 50 },
+                { id: 'server1', type: 'server', label: 'S1', x: 90, y: 30 },
+                { id: 'server2', type: 'server', label: 'S2', x: 90, y: 70 }
+            ];
+            
+            const connections = [
+                { from: 'client1', to: 'router1', reliability: 0.98 },
+                { from: 'client2', to: 'router1', reliability: 0.97 },
+                { from: 'router1', to: 'router2', reliability: 0.99 },
+                { from: 'router1', to: 'router3', reliability: 0.99 },
+                { from: 'router2', to: 'router4', reliability: 0.97 },
+                { from: 'router3', to: 'router4', reliability: 0.98 },
+                { from: 'router4', to: 'server1', reliability: 0.99 },
+                { from: 'router4', to: 'server2', reliability: 0.98 }
+            ];
+            
+            // Create nodes
+            nodes.forEach(node => {
+                const nodeEl = document.createElement('div');
+                nodeEl.className = `node node-${node.type}`;
+                nodeEl.id = node.id;
+                nodeEl.textContent = node.label;
+                nodeEl.style.left = `${node.x}%`;
+                nodeEl.style.top = `${node.y}%`;
+                
+                // Add tooltip info
+                nodeEl.addEventListener('mouseenter', (e) => {
+                    showTooltip(e, `<b>${getNodeTypeName(node.type)}: ${node.label}</b><br>
+                                  Status: Online<br>
+                                  IP: 192.168.${node.x}.${node.y}<br>
+                                  ${node.type === 'router' ? 'Routing Protocol: OSPF<br>' : ''}
+                                  ${node.type === 'server' ? 'Services: HTTP, DNS<br>' : ''}
+                                  ${node.type === 'client' ? 'OS: Linux<br>' : ''}`);
+                });
+                
+                nodeEl.addEventListener('mouseleave', hideTooltip);
+                
+                networkViz.appendChild(nodeEl);
+            });
+            
+            // Create connections
+            connections.forEach(conn => {
+                const fromNode = nodes.find(n => n.id === conn.from);
+                const toNode = nodes.find(n => n.id === conn.to);
+                
+                const connEl = document.createElement('div');
+                connEl.className = 'connection';
+                connEl.id = `conn-${conn.from}-${conn.to}`;
+                
+                // Calculate position and rotation
+                const x1 = fromNode.x;
+                const y1 = fromNode.y;
+                const x2 = toNode.x;
+                const y2 = toNode.y;
+                
+                const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+                const angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
+                
+                connEl.style.width = `${length}%`;
+                connEl.style.left = `${x1}%`;
+                connEl.style.top = `${y1}%`;
+                connEl.style.transform = `rotate(${angle}deg)`;
+                
+                // Add tooltip info
+                connEl.addEventListener('mouseenter', (e) => {
+                    showTooltip(e, `<b>Connection</b><br>
+                                  From: ${conn.from} To: ${conn.to}<br>
+                                  Bandwidth: 1Gbps<br>
+                                  Reliability: ${conn.reliability * 100}%<br>
+                                  Current Load: ${getRandomInt(10, 40)}%`);
+                });
+                
+                connEl.addEventListener('mouseleave', hideTooltip);
+                
+                networkViz.appendChild(connEl);
+            });
+            
+            // Send TCP Packet function
+            tcpButton.addEventListener('click', () => {
+                sendPacket('tcp', 'client1', 'server1');
+            });
+            
+            // Send UDP Packet function
+            udpButton.addEventListener('click', () => {
+                sendPacket('udp', 'client2', 'server2');
+            });
+            
+            // Simulate error function
+            errorButton.addEventListener('click', () => {
+                sendPacket('error', 'client1', 'server2');
+            });
+            
+            // Reset network function
+            resetButton.addEventListener('click', () => {
+                // Remove all packets
+                const packets = document.querySelectorAll('.packet');
+                packets.forEach(packet => packet.remove());
+                
+                // Reset connections
+                const connectionElements = document.querySelectorAll('.connection');
+                connectionElements.forEach(conn => conn.classList.remove('active'));
+                
+                // Reset stats
+                stats = {
+                    sent: 0,
+                    received: 0,
+                    loss: 0,
+                    latencySum: 0,
+                    latencyCount: 0
+                };
+                updateStats();
+                
+                // Turn off auto traffic if running
+                if (stats.autoTrafficInterval) {
+                    clearInterval(stats.autoTrafficInterval);
+                    stats.autoTrafficInterval = null;
+                    autoTraffic.checked = false;
+                }
+            });
+            
+            // Auto traffic toggle
+            autoTraffic.addEventListener('change', (e) => {
+                if (e.target.checked) {
+                    stats.autoTrafficInterval = setInterval(() => {
+                        const sourceTypes = ['client1', 'client2'];
+                        const destTypes = ['server1', 'server2'];
+                        const packetTypes = ['tcp', 'udp'];
+                        
+                        const source = sourceTypes[getRandomInt(0, sourceTypes.length - 1)];
+                        const dest = destTypes[getRandomInt(0, destTypes.length - 1)];
+                        const type = packetTypes[getRandomInt(0, packetTypes.length - 1)];
+                        
+                        sendPacket(type, source, dest);
+                    }, 2000);
+                } else if (stats.autoTrafficInterval) {
+                    clearInterval(stats.autoTrafficInterval);
+                    stats.autoTrafficInterval = null;
+                }
+            });
+            
+            // Send a packet across the network
+            function sendPacket(type, from, to) {
+                const fromNode = document.getElementById(from);
+                const toNode = document.getElementById(to);
+                
+                if (!fromNode || !toNode) return;
+                
+                const packet = document.createElement('div');
+                packet.className = `packet packet-${type}`;
+                
+                // Position at start node
+                const fromRect = fromNode.getBoundingClientRect();
+                const vizRect = networkViz.getBoundingClientRect();
+                
+                packet.style.left = `${fromNode.offsetLeft + fromNode.offsetWidth / 2}px`;
+                packet.style.top = `${fromNode.offsetTop + fromNode.offsetHeight / 2}px`;
+                
+                networkViz.appendChild(packet);
+                
+                // Update stats
+                stats.sent++;
+                
+                // Define path (using Dijkstra's algorithm in a real implementation)
+                let path;
+                if (from === 'client1' && to === 'server1') {
+                    path = ['client1', 'router1', 'router2', 'router4', 'server1'];
+                } else if (from === 'client2' && to === 'server2') {
+                    path = ['client2', 'router1', 'router3', 'router4', 'server2'];
+                } else if (from === 'client1' && to === 'server2') {
+                    path = ['client1', 'router1', 'router3', 'router4', 'server2'];
+                } else {
+                    path = ['client2', 'router1', 'router2', 'router4', 'server1'];
+                }
+                
+                // Simulate packet traversal
+                animatePacketAlongPath(packet, path, type);
+            }
+            
+            // Animate packet along a path
+            function animatePacketAlongPath(packet, path, type) {
+                let currentStep = 0;
+                const totalSteps = path.length - 1;
+                
+                function nextStep() {
+                    if (currentStep >= totalSteps) {
+                        // Reached destination
+                        setTimeout(() => {
+                            packet.remove();
+                            if (type !== 'error') {
+                                stats.received++;
+                                const latency = getRandomInt(30, 150);
+                                stats.latencySum += latency;
+                                stats.latencyCount++;
+                            }
+                            updateStats();
+                        }, 500);
+                        return;
+                    }
+                    
+                    const fromId = path[currentStep];
+                    const toId = path[currentStep + 1];
+                    
+                    // Get connection
+                    const connId = `conn-${fromId}-${toId}`;
+                    const conn = document.getElementById(connId);
+                    
+                    // If no direct connection, try reverse
+                    const connReverse = !conn ? document.getElementById(`conn-${toId}-${fromId}`) : null;
+                    const activeConn = conn || connReverse;
+                    
+                    if (activeConn) {
+                        // Highlight active connection
+                        activeConn.classList.add('active');
+                        
+                        // Determine if packet will be lost based on connection reliability
+                        const connectionInfo = connections.find(c => 
+                            (c.from === fromId && c.to === toId) || 
+                            (c.from === toId && c.to === fromId));
+                        
+                        const reliability = connectionInfo ? connectionInfo.reliability : 0.95;
+                        const packetLost = Math.random() > reliability || type === 'error';
+                        
+                        // Get target node
+                        const targetNode = document.getElementById(toId);
+                        
+                        if (targetNode && !packetLost) {
+                            // Animate to next node
+                            const duration = getRandomInt(300, 700); // Vary speed to simulate network conditions
+                            
+                            packet.style.transition = `left ${duration}ms ease, top ${duration}ms ease`;
+                            packet.style.left = `${targetNode.offsetLeft + targetNode.offsetWidth / 2}px`;
+                            packet.style.top = `${targetNode.offsetTop + targetNode.offsetHeight / 2}px`;
+                            
+                            setTimeout(() => {
+                                activeConn.classList.remove('active');
+                                currentStep++;
+                                nextStep();
+                            }, duration + 100);
+                        } else {
+                            // Simulate packet loss
+                            packet.className = 'packet packet-error';
+                            setTimeout(() => {
+                                activeConn.classList.remove('active');
+                                packet.remove();
+                                updateStats();
+                            }, 300);
+                        }
+                    } else {
+                        // No connection found, remove packet
+                        packet.remove();
+                    }
+                }
+                
+                // Start animation
+                nextStep();
+            }
+            
+            // Update network statistics display
+            function updateStats() {
+                packetsSent.textContent = stats.sent;
+                packetsReceived.textContent = stats.received;
+                
+                const lossRate = stats.sent > 0 
+                    ? Math.round((1 - stats.received / stats.sent) * 100) 
+                    : 0;
+                packetLoss.textContent = `${lossRate}%`;
+                
+                const avgLatencyValue = stats.latencyCount > 0 
+                    ? Math.round(stats.latencySum / stats.latencyCount) 
+                    : 0;
+                avgLatency.textContent = `${avgLatencyValue}ms`;
+                
+                let loadLevel;
+                if (lossRate > 15) loadLevel = 'High';
+                else if (lossRate > 5) loadLevel = 'Medium';
+                else loadLevel = 'Low';
+                networkLoad.textContent = loadLevel;
+            }
+            
+            // Tooltip functions
+            function showTooltip(event, content) {
+                tooltip.innerHTML = content;
+                tooltip.style.left = `${event.pageX - networkViz.offsetLeft + 10}px`;
+                tooltip.style.top = `${event.pageY - networkViz.offsetTop + 10}px`;
+                tooltip.style.opacity = 1;
+            }
+            
+            function hideTooltip() {
+                tooltip.style.opacity = 0;
+            }
+            
+            // Helper functions
+            function getRandomInt(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+            
+            function getNodeTypeName(type) {
+                switch(type) {
+                    case 'router': return 'Router';
+                    case 'server': return 'Server';
+                    case 'client': return 'Client';
+                    default: return 'Node';
+                }
+            }
+        }
+
         // Initialize when DOM is loaded
         document.addEventListener('DOMContentLoaded', () => {
             populateSocialLinks();
+            initSimpleNetworkSimulation();
             initNetworkSimulation();
         });
     </script>
 </body>
-</html></div>
+</html>
