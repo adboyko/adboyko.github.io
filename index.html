@@ -641,27 +641,35 @@
             });
             // Create connections
             connections.forEach(conn => {
-                const fromNode = nodes.find(n => n.id === conn.from);
-                const toNode = nodes.find(n => n.id === conn.to);
+                const fromEl = document.getElementById(conn.from);
+                const toEl = document.getElementById(conn.to);
+                
+                if (!fromEl || !toEl) return;
                 
                 const connEl = document.createElement('div');
                 connEl.className = 'connection';
                 connEl.id = `conn-${conn.from}-${conn.to}`;
                 
-                // Calculate position and rotation
-                const x1 = fromNode.x;
-                const y1 = fromNode.y;
-                const x2 = toNode.x;
-                const y2 = toNode.y;
+                // Get positions in pixels (accounting for the node's center)
+                const fromRect = fromEl.getBoundingClientRect();
+                const toRect = toEl.getBoundingClientRect();
+                const vizRect = networkViz.getBoundingClientRect();
                 
+                // Calculate center points relative to the container
+                const x1 = fromRect.left + fromRect.width/2 - vizRect.left;
+                const y1 = fromRect.top + fromRect.height/2 - vizRect.top;
+                const x2 = toRect.left + toRect.width/2 - vizRect.left;
+                const y2 = toRect.top + toRect.height/2 - vizRect.top;
+                
+                // Calculate length and angle
                 const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
                 const angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
                 
-                // Position the connection at the center of the first node
-                connEl.style.width = `${length}%`;
-                connEl.style.left = `${x1}%`;
-                connEl.style.top = `${y1}%`;
-                connEl.style.transformOrigin = 'left center'; // Rotate around left center
+                // Position using absolute pixels
+                connEl.style.width = `${length}px`;
+                connEl.style.left = `${x1}px`;
+                connEl.style.top = `${y1}px`;
+                connEl.style.transformOrigin = 'left center';
                 connEl.style.transform = `rotate(${angle}deg)`;
                 
                 // Add tooltip info
