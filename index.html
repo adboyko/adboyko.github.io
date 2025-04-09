@@ -791,10 +791,54 @@
                 script.onload = async () => {
                     try {
                         this.pyodide = await loadPyodide();
+                        
+                        // Set up custom stdout to capture print statements
+                        const terminal = this;
+                        this.pyodide.runPython(`
+                            import sys
+                            import io
+                            
+                            class WebTerminal(io.TextIOBase):
+                                def __init__(self, terminal_obj):
+                                    self.terminal = terminal_obj
+                                    self.buffer = ""
+                                
+                                def write(self, text):
+                                    self.buffer += text
+                                    if '\\n' in text:
+                                        lines = self.buffer.split('\\n')
+                                        for line in lines[:-1]:
+                                            self.terminal.addLine(line)
+                                        self.buffer = lines[-1]
+                                    return len(text)
+                                
+                                def readline(self):
+                                    # This will be handled by our custom input function
+                                    return ""
+                            
+                            sys.stdout = WebTerminal(js.terminal)
+                            sys.stderr = WebTerminal(js.terminal)
+                        `, { terminal: this });
+                        
                         this.addLine('Python interpreter ready! (Powered by Pyodide)');
                         this.addLine('Type Python code directly, or "exit()" to return to shell');
                         this.pythonMode = true;
                         this.updatePrompt('>>> ');
+                        
+                        // Set up a flag for when we're waiting for input
+                        this.waitingForPythonInput = false;
+                        this.pythonInputCallback = null;
+                        
+                        // Override the built-in input function
+                        this.pyodide.runPython(`
+                            def custom_input(prompt=""):
+                                if prompt:
+                                    sys.stdout.write(prompt)
+                                return js.terminal.handlePythonInput()
+                            
+                            __builtins__.input = custom_input
+                        `);
+                        
                     } catch (err) {
                         this.addLine(`Failed to load Python: ${err.message}`);
                     }
@@ -812,6 +856,17 @@
             }
         },
 
+        // Handle Python input requests
+        handlePythonInput: function() {
+            this.waitingForPythonInput = true;
+            this.updatePrompt('... ');
+            
+            // Return a promise that will be resolved when input is provided
+            return new Promise(resolve => {
+                this.pythonInputCallback = resolve;
+            });
+        },
+
         // Method to execute Python code
         executePython: async function(code) {
             if (code.trim() === 'exit()') {
@@ -822,10 +877,19 @@
             }
             
             try {
-                const result = await this.pyodide.runPythonAsync(code);
-                if (result !== undefined) {
-                    this.addLine(result.toString());
+                // If we're waiting for input, resolve the promise with the provided input
+                if (this.waitingForPythonInput && this.pythonInputCallback) {
+                    this.pythonInputCallback(code);
+                    this.pythonInputCallback = null;
+                    this.waitingForPythonInput = false;
+                    this.updatePrompt('>>> ');
+                    return;
                 }
+                
+                // Regular execution of Python code
+                await this.pyodide.runPythonAsync(code);
+                // Note: We don't need to manually handle the result anymore
+                // as our custom stdout will capture all output
             } catch (err) {
                 this.addLine(`Error: ${err.message}`);
             }
