@@ -542,6 +542,12 @@
             const packet = document.getElementById('simple-packet');
             const packetInfo = document.getElementById('packet-info');
             
+            // Check if all required elements exist
+            if (!sendButton || !resetButton || !packet || !packetInfo) {
+                console.warn('Simple network simulation elements not found. Skipping initialization.');
+                return;
+            }
+            
             sendButton.addEventListener('click', () => {
                 // Animate packet moving from Router A to Router B
                 packet.style.left = '85%';
@@ -897,16 +903,16 @@
                     case 'router': return 'Router';
                     case 'server': return 'Server';
                     case 'client': return 'Client';
-                    default: return 'Node';
+                    default: return type;
                 }
             }
         }
-
+        
         // Initialize when DOM is loaded
         document.addEventListener('DOMContentLoaded', () => {
             populateSocialLinks();
-            initSimpleNetworkSimulation();
             initNetworkSimulation();
+            initSimpleNetworkSimulation();
         });
     </script>
 </body>
