@@ -3,1757 +3,387 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
-    <title>Network Engineer & Developer Profile</title>
+    <title>Adam Boyko - Network Engineer & Cloud Architect</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Courier New', monospace;
         }
 
         body {
-            background-color: #0a192f;
-            color: #e6f1ff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
             line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0 20px;
         }
 
+        /* Header */
         header {
-            padding: 50px 0;
             text-align: center;
-            border-bottom: 1px solid #64ffda;
+            padding: 80px 0 60px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 0 0 50px 50px;
+            margin-bottom: 40px;
         }
 
-        section {
-            padding: 40px 0;
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 6px solid rgba(255, 255, 255, 0.3);
+            margin: 0 auto 30px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
 
         h1 {
-            font-size: 2.5rem;
-            color: #64ffda;
+            font-size: 3rem;
+            color: white;
             margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
-        h2 {
-            font-size: 2rem;
-            color: #64ffda;
+        .tagline {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.9);
             margin-bottom: 20px;
         }
 
-        h3 {
-            color: #64ffda;
+        .cert-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin: 5px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* Main content */
+        .main-content {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .about-section h2 {
+            color: #667eea;
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Skills grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .skill-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 30px 25px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .skill-card:nth-child(2) {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .skill-card:nth-child(3) {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .skill-card:nth-child(4) {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .skill-card i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
+
+        .skill-card h3 {
+            font-size: 1.4rem;
             margin-bottom: 10px;
         }
 
-        p {
-            margin-bottom: 15px;
+        .skill-card p {
+            font-size: 0.95rem;
+            opacity: 0.95;
         }
 
-        .btn {
-            display: inline-block;
-            background-color: #64ffda;
-            color: #0a192f;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            margin: 10px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .btn:hover {
-            background-color: #a8b2d1;
-            transform: translateY(-2px);
-        }
-
-        .text-center {
+        /* Fun network animation */
+        .network-demo {
+            background: #f8f9ff;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 40px 0;
             text-align: center;
-        }
-
-        /* Enhanced Network Visualization */
-        .network-viz {
             position: relative;
-            height: 400px;
-            background-color: #172a45;
-            border-radius: 10px;
             overflow: hidden;
-            margin: 30px 0;
-            border: 1px solid #64ffda;
-            box-shadow: 0 0 10px rgba(100, 255, 218, 0.2);
         }
 
-        .node {
-            position: absolute;
-            width: 60px;
-            height: 60px;
-            background-color: #64ffda;
-            border-radius: 50%;
+        .network-demo h3 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .network-visual {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .network-node {
+            width: 80px;
+            height: 80px;
+            border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            color: #0a192f;
-            box-shadow: 0 0 10px rgba(100, 255, 218, 0.5);
-            cursor: pointer;
-            transition: transform 0.3s ease;
-            z-index: 10;
-        }
-
-        .node:hover {
-            transform: scale(1.1);
-        }
-
-        .node-router {
-            border-radius: 15px;
-        }
-
-        .node-server {
-            background-color: #ffbd2e;
-        }
-
-        .node-client {
-            background-color: #a8b2d1;
-        }
-
-        .connection {
-            position: absolute;
-            height: 3px;
-            background-color: #8892b0;
-            transform-origin: left center;
-            z-index: 5;
-        }
-
-        .connection.active {
-            background-color: #64ffda;
-            box-shadow: 0 0 8px #64ffda;
-            animation: pulse 1s infinite;
-        }
-
-        .packet {
-            position: absolute;
-            width: 15px;
-            height: 15px;
-            border-radius: 50%;
-            z-index: 15;
-        }
-
-        .packet-data {
-            background-color: #ffffff;
-        }
-
-        .packet-tcp {
-            background-color: #64ffda;
-        }
-
-        .packet-udp {
-            background-color: #ffbd2e;
-        }
-
-        .packet-error {
-            background-color: #ff5f56;
-        }
-
-        .network-controls {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .stat-panel {
-            background-color: #172a45;
-            border: 1px solid #64ffda;
-            border-radius: 5px;
-            padding: 10px;
-            margin-top: 20px;
-        }
-
-        .stat-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 5px;
-            font-size: 0.9rem;
-        }
-
-        .tooltip {
-            position: absolute;
-            background-color: #0a192f;
-            border: 1px solid #64ffda;
-            padding: 10px;
-            border-radius: 5px;
-            color: #e6f1ff;
-            font-size: 0.8rem;
-            z-index: 100;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            max-width: 200px;
-        }
-
-        .checkbox-container {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            margin-bottom: 10px;
-        }
-
-        /* Simple network simulation */
-        .simple-network-viz {
+            color: white;
+            font-size: 1.8rem;
             position: relative;
-            height: 200px;
-            background-color: #172a45;
-            border-radius: 10px;
-            overflow: hidden;
-            margin: 30px 0;
-            border: 1px solid #64ffda;
-            box-shadow: 0 0 10px rgba(100, 255, 218, 0.2);
+            z-index: 2;
         }
 
         .router {
-            position: absolute;
-            width: 70px;
-            height: 70px;
-            background-color: #64ffda;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: #0a192f;
-            box-shadow: 0 0 10px rgba(100, 255, 218, 0.5);
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            animation: pulse 2s ease-in-out infinite;
         }
 
-        .router:before {
-            content: '';
-            position: absolute;
-            width: 90%;
-            height: 90%;
-            border: 2px dashed #0a192f;
-            border-radius: 10px;
+        .cloud {
+            background: linear-gradient(45deg, #4facfe, #00f2fe);
         }
 
-        .router-a {
-            left: 10%;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-
-        .router-b {
-            right: 10%;
-            top: 50%;
-            transform: translateY(-50%);
+        .user {
+            background: linear-gradient(45deg, #43e97b, #38f9d7);
         }
 
         .connection-line {
             position: absolute;
-            height: 4px;
-            background-color: #8892b0;
             top: 50%;
             left: 15%;
             right: 15%;
-            transform: translateY(-50%);
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #4facfe);
+            border-radius: 2px;
+            z-index: 1;
         }
 
-        .simple-packet {
+        .data-packet {
             position: absolute;
-            width: 20px;
-            height: 20px;
-            background-color: #ffffff;
+            width: 15px;
+            height: 15px;
+            background: #ff6b6b;
             border-radius: 50%;
             top: 50%;
             transform: translateY(-50%);
-            left: 15%;
-            transition: left 2s ease;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
-            z-index: 5;
+            animation: movePacket 3s ease-in-out infinite;
+            z-index: 3;
+            box-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
         }
 
-        /* About and Interests */
-        .interests {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
+        /* Social links */
+        .social-section {
+            text-align: center;
+            padding: 30px 0;
         }
 
-        .interest-card {
-            background-color: #172a45;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease;
-            border: 1px solid rgba(100, 255, 218, 0.3);
+        .social-section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
         }
 
-        .interest-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
-        }
-
-        .interest-card i {
-            font-size: 2rem;
-            margin-bottom: 15px;
-            color: #64ffda;
-        }
-
-        /* Social Links */
         .social-links {
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
             gap: 20px;
-            margin-top: 30px;
+            flex-wrap: wrap;
         }
 
-        .social-icon {
+        .social-link {
+            display: inline-block;
             width: 60px;
             height: 60px;
-            background-color: #172a45;
-            border: 2px solid #64ffda;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
             border-radius: 50%;
+            text-decoration: none;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
-            color: #64ffda;
-            text-decoration: none;
+            font-size: 1.5rem;
             transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .social-icon:hover {
-            transform: translateY(-5px) rotate(360deg);
-            background-color: #64ffda;
-            color: #0a192f;
+        .social-link:hover {
+            transform: translateY(-3px) scale(1.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
         }
 
-        /* Terminal effect */
-        .terminal {
-            background-color: #172a45;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 30px 0;
-            border: 1px solid #64ffda;
-            box-shadow: 0 0 10px rgba(100, 255, 218, 0.2);
-            font-family: 'Courier New', monospace;
-        }
-
-        .terminal-header {
-            display: flex;
-            margin-bottom: 15px;
-        }
-
-        .terminal-button {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            margin-right: 8px;
-            background-color: #ff5f56;
-        }
-
-        .terminal-button:nth-child(2) {
-            background-color: #ffbd2e;
-        }
-
-        .terminal-button:nth-child(3) {
-            background-color: #27c93f;
-        }
-
-        .terminal-text {
-            color: #e6f1ff;
-        }
-
-        .terminal-text .prompt {
-            color: #64ffda;
-        }
-
-        .blink {
-            animation: blink 1s infinite;
-        }
-
+        /* Footer */
         footer {
             text-align: center;
             padding: 20px 0;
-            background-color: #172a45;
-            margin-top: 40px;
-            border-top: 1px solid rgba(100, 255, 218, 0.3);
+            color: rgba(255, 255, 255, 0.7);
         }
 
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-
+        /* Animations */
         @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.6; }
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes movePacket {
+            0% { left: 10%; }
+            50% { left: 50%; }
+            100% { left: 90%; }
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .tagline { font-size: 1.1rem; }
+            .main-content { padding: 25px; }
+            .network-visual { flex-direction: column; gap: 20px; }
+            .connection-line { display: none; }
+            .data-packet { display: none; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Network Engineer & Developer</h1>
-            <p>Building the connections that power the digital world</p>
+            <div class="profile-pic">
+                <i class="fas fa-network-wired"></i>
+            </div>
+            <h1>Adam Boyko</h1>
+            <p class="tagline">Network Engineer & Cloud Architect</p>
+            <div class="cert-badge">
+                <i class="fas fa-certificate"></i> CCNP Enterprise Infrastructure
+            </div>
         </header>
         
-        <section id="terminal-intro" class="terminal">
-            <div class="terminal-header">
-            <div class="terminal-button"></div>
-            <div class="terminal-button"></div>
-            <div class="terminal-button"></div>
-            </div>
-            <div class="terminal-text" id="terminal-output">
-            <p>Welcome to the interactive terminal. Type 'help' for available commands.</p>
-            <p><span class="prompt">$</span> whoami</p>
-            <p>network_engineer | cloud_architect | python_developer</p>
-            <div id="terminal-lines"></div>
-            <div id="input-line">
-                <span class="prompt">$</span> <span id="command-input"></span><span class="blink" id="cursor">_</span>
-            </div>
-            </div>
-        </section>
-        
-        <section id="network-simulation" style="display: none;">
-            <h2>Network Topology Simulation</h2>
-            <p class="text-center">Interactive network simulation with multiple nodes and protocols</p>
-            <div class="network-viz" id="network-viz">
-            <!-- Nodes and connections will be added via JavaScript -->
-            <div id="tooltip" class="tooltip"></div>
+        <div class="main-content">
+            <div class="about-section">
+                <h2>About Me</h2>
+                <p class="about-text">
+                    I'm passionate about building robust network infrastructures and scalable cloud solutions. 
+                    With my CCNP Enterprise Infrastructure certification and extensive experience in cloud services, 
+                    I bridge the gap between traditional networking and modern cloud architectures.
+                </p>
             </div>
             
-            <div class="network-controls">
-            <button class="btn" id="send-tcp">Send TCP Packet</button>
-            <button class="btn" id="send-udp">Send UDP Packet</button>
-            <button class="btn" id="simulate-error">Simulate Error</button>
-            <button class="btn" id="reset-network">Reset Network</button>
-            </div>
-            
-            <div class="checkbox-container">
-            <input type="checkbox" id="auto-traffic" name="auto-traffic">
-            <label for="auto-traffic">Simulate background traffic</label>
-            </div>
-            
-            <div class="stat-panel" id="network-stats">
-            <h3>Network Statistics</h3>
-            <div class="stat-row">
-                <span>Packets Sent:</span>
-                <span id="packets-sent">0</span>
-            </div>
-            <div class="stat-row">
-                <span>Packets Received:</span>
-                <span id="packets-received">0</span>
-            </div>
-            <div class="stat-row">
-                <span>Packet Loss:</span>
-                <span id="packet-loss">0%</span>
-            </div>
-            <div class="stat-row">
-                <span>Average Latency:</span>
-                <span id="avg-latency">0ms</span>
-            </div>
-            <div class="stat-row">
-                <span>Network Load:</span>
-                <span id="network-load">Low</span>
-            </div>
-            </div>
-        </section>
-
-    <script>
-    // Terminal emulator implementation
-    document.addEventListener('DOMContentLoaded', function() {
-        const terminal = {
-        currentDir: '~',
-        commandInput: document.getElementById('command-input'),
-        terminalLines: document.getElementById('terminal-lines'),
-        inputLine: document.getElementById('input-line'),
-        cursor: document.getElementById('cursor'),
-        currentInput: '',
-        commandHistory: [],
-        historyIndex: -1,
-        tabCompletionOptions: [],
-        tabCompletionIndex: -1,
-        
-        // Mock file system
-        fileSystem: {
-            '~': {
-            type: 'dir',
-            children: {
-                'profile': {
-                type: 'dir',
-                children: {
-                    'internetworking.py': {
-                    type: 'file',
-                    content: '# Network Infrastructure Management Tool\n\nimport networkx as nx\n\nclass NetworkTopology:\n    def __init__(self):\n        self.graph = nx.Graph()\n        \n    def add_node(self, name, type="router"):\n        self.graph.add_node(name, type=type)\n        \n    def connect(self, node1, node2, bandwidth="1Gbps"):\n        self.graph.add_edge(node1, node2, bandwidth=bandwidth)\n        \n# Example usage\ntopo = NetworkTopology()\ntopo.add_node("R1")\ntopo.add_node("R2")\ntopo.connect("R1", "R2")'
-                    },
-                    'cloud.yml': {
-                    type: 'file',
-                    content: 'AWSTemplateFormatVersion: "2010-09-09"\nDescription: "Cloud infrastructure with auto-scaling web servers"\n\nResources:\n  VPC:\n    Type: AWS::EC2::VPC\n    Properties:\n      CidrBlock: 10.0.0.0/16\n      EnableDnsSupport: true\n      EnableDnsHostnames: true\n      Tags:\n        - Key: Name\n          Value: MainVPC'
-                    },
-                    'welcome.txt': {
-                    type: 'file',
-                    content: 'Welcome to my personal page! Feel free to explore and connect.\n\nI\'m passionate about network engineering, cloud infrastructure, and Python development.\n\nUse the interactive terminal to learn more about my work, or type "network-mock-sim" to explore the network simulation.'
-                    },
-                    'python_projects': {
-                    type: 'dir',
-                    children: {
-                        'automation.py': {
-                        type: 'file',
-                        content: '#!/usr/bin/env python\n\nfrom netmiko import ConnectHandler\nimport yaml\nimport logging\n\n# Load device inventory\nwith open("inventory.yml", "r") as f:\n    inventory = yaml.safe_load(f)\n    \nfor device in inventory["devices"]:\n    connection = ConnectHandler(**device)\n    output = connection.send_command("show version")\n    print(f"Connected to {device[\'ip\']}\\n{output}")\n    connection.disconnect()'
-                        },
-                        'data_analysis.py': {
-                        type: 'file',
-                        content: 'import pandas as pd\nimport matplotlib.pyplot as plt\n\n# Network traffic analysis\ndata = pd.read_csv("network_traffic.csv")\n\n# Calculate statistics\ntotal_traffic = data["bytes"].sum() / (1024**3)  # Convert to GB\npeak_time = data.loc[data["bytes"].idxmax()]["timestamp"]\n\nprint(f"Total traffic: {total_traffic:.2f} GB")\nprint(f"Peak time: {peak_time}")\n\n# Create visualization\nplt.figure(figsize=(10, 6))\nplt.plot(data["timestamp"], data["bytes"] / (1024**2))\nplt.title("Network Traffic Over Time")\nplt.xlabel("Time")\nplt.ylabel("Traffic (MB)")\nplt.grid(True)\nplt.savefig("network_traffic.png")'
-                        }
-                    }
-                    },
-                    'networking_tools': {
-                    type: 'dir',
-                    children: {
-                        'subnet_calculator.py': {
-                        type: 'file',
-                        content: 'import ipaddress\n\ndef subnet_info(cidr):\n    """Calculate subnet information from CIDR notation"""\n    net = ipaddress.IPv4Network(cidr, strict=False)\n    return {\n        "network": str(net.network_address),\n        "broadcast": str(net.broadcast_address),\n        "netmask": str(net.netmask),\n        "num_addresses": net.num_addresses,\n        "hosts": net.num_addresses - 2  # Exclude network and broadcast\n    }\n\n# Example usage\ncidr = input("Enter CIDR (e.g., 192.168.1.0/24): ")\ninfo = subnet_info(cidr)\n\nfor key, value in info.items():\n    print(f"{key}: {value}")'
-                        },
-                        'network-mock-sim': {
-                        type: 'file',
-                        content: '#!/bin/bash\n\n# This script launches a network simulation\necho "Starting network simulation..."\necho "Initializing nodes..."\necho "Loading topology..."\necho "Ready!"\n\n# In a real environment, this would launch the simulation'
-                        }
-                    }
-                    }
-                }
-                },
-                'README.md': {
-                type: 'file',
-                content: '# Personal Profile\n\nThis is my personal profile showcasing my work in network engineering, cloud infrastructure, and software development.\n\n## Skills\n\n- Network Engineering (OSPF, BGP, MPLS)\n- Cloud Infrastructure (AWS, Azure)\n- Python Development\n- Automation & CI/CD\n\nExplore the directories to learn more about my projects and interests.'
-                }
-            }
-            }
-        },
-        
-        // Get current directory object
-        getCurrentDirectory: function() {
-            let path = this.currentDir.split('/');
-            let current = this.fileSystem['~'];
-            
-            if (this.currentDir === '~') return current;
-            
-            for (let i = 1; i < path.length; i++) {
-            if (path[i] === '') continue;
-            current = current.children[path[i]];
-            if (!current) return null;
-            }
-            return current;
-        },
-        
-        // Get object at a specific path
-        getObjectAtPath: function(path) {
-            if (path === '~' || path === '/' || path === '') return this.fileSystem['~'];
-            
-            if (path.startsWith('~')) {
-            path = path.substring(1);
-            if (path.startsWith('/')) path = path.substring(1);
-            let current = this.fileSystem['~'];
-            if (!path) return current;
-            
-            const parts = path.split('/');
-            for (const part of parts) {
-                if (!part) continue;
-                if (!current.children || !current.children[part]) return null;
-                current = current.children[part];
-            }
-            return current;
-            } else if (path.startsWith('/')) {
-            // Absolute path
-            return null; // For simplicity, we'll just implement relative paths
-            } else {
-            // Relative path
-            let current = this.getCurrentDirectory();
-            const parts = path.split('/');
-            for (const part of parts) {
-                if (part === '.') continue;
-                if (part === '..') {
-                if (this.currentDir === '~') continue;
-                const dirParts = this.currentDir.split('/');
-                dirParts.pop();
-                this.currentDir = dirParts.join('/') || '~';
-                current = this.getCurrentDirectory();
-                continue;
-                }
-                if (!current.children || !current.children[part]) return null;
-                current = current.children[part];
-            }
-            return current;
-            }
-        },
-        
-        // Initialize terminal
-        init: function() {
-            document.addEventListener('keydown', this.handleKeyDown.bind(this));
-            document.addEventListener('click', () => {
-            this.commandInput.focus();
-            });
-        },
-        
-        // Handle key presses
-        handleKeyDown: function(e) {
-            if (e.key === 'Enter') {
-            this.executeCommand();
-            } else if (e.key === 'Backspace') {
-            if (this.currentInput.length > 0) {
-                this.currentInput = this.currentInput.slice(0, -1);
-                this.updateInputDisplay();
-            }
-            e.preventDefault();
-            } else if (e.key === 'ArrowUp') {
-            if (this.commandHistory.length > 0 && this.historyIndex < this.commandHistory.length - 1) {
-                this.historyIndex++;
-                this.currentInput = this.commandHistory[this.commandHistory.length - 1 - this.historyIndex];
-                this.updateInputDisplay();
-            }
-            e.preventDefault();
-            } else if (e.key === 'ArrowDown') {
-            if (this.historyIndex > 0) {
-                this.historyIndex--;
-                this.currentInput = this.commandHistory[this.commandHistory.length - 1 - this.historyIndex];
-                this.updateInputDisplay();
-            } else if (this.historyIndex === 0) {
-                this.historyIndex = -1;
-                this.currentInput = '';
-                this.updateInputDisplay();
-            }
-            e.preventDefault();
-            } else if (e.key === 'Tab') {
-            this.handleTabCompletion();
-            e.preventDefault();
-            } else if (e.key.length === 1 && !e.ctrlKey && !e.altKey && !e.metaKey) {
-            this.currentInput += e.key;
-            this.updateInputDisplay();
-            e.preventDefault();
-            }
-        },
-        
-        // Handle tab completion
-        handleTabCompletion: function() {
-            const input = this.currentInput;
-            const parts = input.split(' ');
-            
-            // Only attempt tab completion if we have a partial path
-            if (parts.length > 0) {
-            const lastPart = parts[parts.length - 1];
-            
-            // For simplicity, only handle completion for the current directory
-            if (!this.tabCompletionOptions.length) {
-                const currentDir = this.getCurrentDirectory();
-                if (currentDir && currentDir.children) {
-                const matches = Object.keys(currentDir.children).filter(name => 
-                    name.startsWith(lastPart)
-                );
-                
-                if (matches.length === 1) {
-                    // Exact match
-                    parts[parts.length - 1] = matches[0];
-                    if (currentDir.children[matches[0]].type === 'dir') {
-                    parts[parts.length - 1] += '/';
-                    }
-                    this.currentInput = parts.join(' ');
-                    this.updateInputDisplay();
-                } else if (matches.length > 1) {
-                    // Multiple matches, save options for cycling
-                    this.tabCompletionOptions = matches;
-                    this.tabCompletionIndex = 0;
-                    parts[parts.length - 1] = this.tabCompletionOptions[0];
-                    this.currentInput = parts.join(' ');
-                    this.updateInputDisplay();
-                }
-                }
-            } else {
-                // Cycle through completion options
-                this.tabCompletionIndex = (this.tabCompletionIndex + 1) % this.tabCompletionOptions.length;
-                parts[parts.length - 1] = this.tabCompletionOptions[this.tabCompletionIndex];
-                const currentDir = this.getCurrentDirectory();
-                if (currentDir.children[this.tabCompletionOptions[this.tabCompletionIndex]].type === 'dir') {
-                parts[parts.length - 1] += '/';
-                }
-                this.currentInput = parts.join(' ');
-                this.updateInputDisplay();
-            }
-            }
-        },
-        
-        // Update the displayed input
-        updateInputDisplay: function() {
-            this.commandInput.textContent = this.currentInput;
-            // Reset tab completion if input changes
-            if (this.tabCompletionOptions.length > 0) {
-            this.tabCompletionOptions = [];
-            this.tabCompletionIndex = -1;
-            }
-        },
-        
-        // Add a new line to the terminal
-        addLine: function(text) {
-            const line = document.createElement('p');
-            line.textContent = text;
-            this.terminalLines.appendChild(line);
-        },
-        
-        // Execute the current command
-        executeCommand: function() {
-            const fullLine = document.createElement('p');
-            fullLine.innerHTML = `<span class="prompt">$</span> ${this.currentInput}`;
-            this.terminalLines.appendChild(fullLine);
-            
-            const parts = this.currentInput.trim().split(' ');
-            const command = parts[0];
-            const args = parts.slice(1);
-            
-            // Add to command history
-            if (this.currentInput.trim()) {
-                this.commandHistory.push(this.currentInput);
-                this.historyIndex = -1;
-            }
-            
-            // Process commands
-            switch (command) {
-                case '':
-                    break;
-                case 'help':
-                    this.addLine('Available commands:');
-                    this.addLine('  ls       - List directory contents');
-                    this.addLine('  cd       - Change directory');
-                    this.addLine('  cat      - View file contents');
-                    this.addLine('  clear    - Clear terminal');
-                    this.addLine('  whoami   - Display user info');
-                    this.addLine('  pwd      - Print working directory');
-                    this.addLine('  help     - Show this help info');
-                    this.addLine('  python   - Start Python interpreter');
-                    this.addLine('  network-mock-sim - Run network simulation');
-                    break;
-                case 'ls':
-                    this.listDirectory(args[0] || '.');
-                    break;
-                case 'cd':
-                    this.changeDirectory(args[0] || '~');
-                    break;
-                case 'cat':
-                    if (args.length === 0) {
-                        this.addLine('Usage: cat <filename>');
-                    } else {
-                        this.catFile(args[0]);
-                    }
-                    break;
-                case 'clear':
-                    this.clearTerminal();
-                    break;
-                case 'pwd':
-                    this.addLine(this.currentDir);
-                    break;
-                case 'whoami':
-                    this.addLine('network_engineer | cloud_architect | python_developer');
-                    break;
-                case 'python':
-                    this.startPythonMode();
-                    break;
-                case 'network-mock-sim':
-                    this.runNetworkSim();
-                    break;
-                default:
-                    this.addLine(`Command not found: ${command}`);
-            }
-            
-            this.currentInput = '';
-            this.updateInputDisplay();
-            
-            // Scroll only within the terminal container
-            const terminalContainer = document.querySelector('.terminal');
-            terminalContainer.scrollTop = terminalContainer.scrollHeight;
-        },
-
-        // New method to handle Python mode
-        startPythonMode: function() {
-            // Check if Pyodide is already loaded
-            if (!window.loadPyodide) {
-            this.addLine('Loading Python interpreter...');
-            
-            // Add Pyodide script
-            const script = document.createElement('script');
-            script.src = 'https://cdn.jsdelivr.net/pyodide/v0.22.1/full/pyodide.js';
-            document.head.appendChild(script);
-            
-            script.onload = async () => {
-                try {
-                this.pyodide = await loadPyodide();
-                
-                // Set up custom stdout to capture print statements
-                const terminal = this;
-                
-                // Make terminal object available to Pyodide
-                window.terminalObj = this;
-                
-                this.pyodide.runPython(`
-                    import sys
-                    import io
-                    import pydoc
-                    from js import terminalObj
-                    
-                    class WebTerminal(io.TextIOBase):
-                        def __init__(self):
-                            self.buffer = ""
-                        
-                        def write(self, text):
-                            self.buffer += text
-                            if '\\n' in text:
-                                lines = self.buffer.split('\\n')
-                                for line in lines[:-1]:
-                                    terminalObj.addLine(line)
-                                self.buffer = lines[-1]
-                            return len(text)
-                        
-                        def readline(self):
-                            # This will be handled by our custom input function
-                            return ""
-                    
-                    sys.stdout = WebTerminal()
-                    sys.stderr = WebTerminal()
-                    
-                    # Override pydoc's pager-related functions to avoid pagination issues
-                    def nopager(text):
-                        """Simple pager that just prints text directly to our custom stdout"""
-                        print(text)
-                    
-                    # Replace pydoc's pager
-                    pydoc.pager = nopager
-                    
-                    # Override the getpager function to always return our nopager
-                    def getpager():
-                        return nopager
-                    
-                    pydoc.getpager = getpager
-                    
-                    # Override the built-in help function to avoid pagination issues
-                    def simple_help(obj=None):
-                        if obj is None:
-                            print("Welcome to Python help. Type help(object) for help on a specific object.")
-                            return
-                        
-                        try:
-                            # Get help text without using interactive pagination
-                            help_text = pydoc.render_doc(obj, title=f"Help on {obj}")
-                            print(help_text)
-                        except Exception as e:
-                            print(f"Error: {e}")
-                    
-                    # Replace the built-in help
-                    __builtins__.help = simple_help
-                    
-                    # Override interact methods that might use pagination
-                    class NonInteractiveConsole:
-                        def __init__(self):
-                            pass
-                        def interact(self, *args, **kwargs):
-                            print("Interactive console not available in this environment.")
-                        def push(self, *args, **kwargs):
-                            pass
-                    
-                    pydoc.Helper.interact = lambda self: print("Interactive help not available. Use help(object) instead.")
-                `);
-                
-                this.addLine('Python interpreter ready! (Powered by Pyodide)');
-                this.addLine('Type Python code directly, or "exit()" to return to shell');
-                this.pythonMode = true;
-                this.updatePrompt('>>> ');
-                
-                // Override the built-in input function
-                this.pyodide.runPython(`
-                    from js import terminalObj
-                    
-                    def custom_input(prompt=""):
-                        if prompt:
-                            sys.stdout.write(prompt)
-                        return terminalObj.handlePythonInput()
-                    
-                    __builtins__.input = custom_input
-                `);
-                
-                } catch (err) {
-                this.addLine(`Failed to load Python: ${err.message}`);
-                }
-            };
-            
-            script.onerror = () => {
-                this.addLine('Failed to load Python interpreter. Check your connection.');
-            };
-            } else if (this.pyodide) {
-            // Pyodide already loaded
-            this.addLine('Python interpreter ready! (Powered by Pyodide)');
-            this.addLine('Type Python code directly, or "exit()" to return to shell');
-            this.pythonMode = true;
-            this.updatePrompt('>>> ');
-            }
-        },
-
-        // Handle Python input requests
-        handlePythonInput: function() {
-            this.waitingForPythonInput = true;
-            this.updatePrompt('... ');
-            
-            // Return a promise that will be resolved when input is provided
-            return new Promise(resolve => {
-                this.pythonInputCallback = resolve;
-            });
-        },
-
-        // Method to execute Python code
-        executePython: async function(code) {
-            if (code.trim() === 'exit()') {
-                this.pythonMode = false;
-                this.updatePrompt('$ ');
-                this.addLine('Exited Python interpreter');
-                return;
-            }
-            
-            try {
-                // If we're waiting for input, resolve the promise with the provided input
-                if (this.waitingForPythonInput && this.pythonInputCallback) {
-                    this.pythonInputCallback(code);
-                    this.pythonInputCallback = null;
-                    this.waitingForPythonInput = false;
-                    this.updatePrompt('>>> ');
-                    return;
-                }
-                
-                // Regular execution of Python code
-                await this.pyodide.runPythonAsync(code);
-                // Note: We don't need to manually handle the result anymore
-                // as our custom stdout will capture all output
-            } catch (err) {
-                this.addLine(`Error: ${err.message}`);
-            }
-        },
-
-        // Update the prompt display
-        updatePrompt: function(prompt) {
-            const promptElements = document.querySelectorAll('.prompt');
-            if (promptElements.length > 0) {
-                const lastPrompt = promptElements[promptElements.length - 1];
-                lastPrompt.textContent = prompt;
-            }
-        },
-
-        // Modify handleKeyDown to handle Python mode
-        handleKeyDown: function(e) {
-            if (e.key === 'Enter') {
-                if (this.pythonMode) {
-                    this.addLine(`>>> ${this.currentInput}`);
-                    this.executePython(this.currentInput);
-                } else {
-                    this.executeCommand();
-                }
-            } else if (e.key === 'Backspace') {
-                if (this.currentInput.length > 0) {
-                    this.currentInput = this.currentInput.slice(0, -1);
-                    this.updateInputDisplay();
-                }
-                e.preventDefault();
-            } else if (e.key === 'ArrowUp') {
-                if (this.commandHistory.length > 0 && this.historyIndex < this.commandHistory.length - 1) {
-                    this.historyIndex++;
-                    this.currentInput = this.commandHistory[this.commandHistory.length - 1 - this.historyIndex];
-                    this.updateInputDisplay();
-                }
-                e.preventDefault();
-            } else if (e.key === 'ArrowDown') {
-                if (this.historyIndex > 0) {
-                    this.historyIndex--;
-                    this.currentInput = this.commandHistory[this.commandHistory.length - 1 - this.historyIndex];
-                    this.updateInputDisplay();
-                } else if (this.historyIndex === 0) {
-                    this.historyIndex = -1;
-                    this.currentInput = '';
-                    this.updateInputDisplay();
-                }
-                e.preventDefault();
-            } else if (e.key === 'Tab') {
-                this.handleTabCompletion();
-                e.preventDefault();
-            } else if (e.key.length === 1 && !e.ctrlKey && !e.altKey && !e.metaKey) {
-                this.currentInput += e.key;
-                this.updateInputDisplay();
-                e.preventDefault();
-            }
-        },
-        
-        // List directory contents
-        listDirectory: function(dir) {
-            const targetDir = this.getObjectAtPath(dir);
-            if (!targetDir) {
-            this.addLine(`ls: cannot access '${dir}': No such file or directory`);
-            return;
-            }
-            if (targetDir.type !== 'dir') {
-            this.addLine(`ls: cannot list '${dir}': Not a directory`);
-            return;
-            }
-            
-            // List children
-            const output = [];
-            for (const [name, obj] of Object.entries(targetDir.children)) {
-            if (obj.type === 'dir') {
-                output.push(`<span style="color: #64ffda;">${name}/</span>`);
-            } else {
-                output.push(name);
-            }
-            }
-            
-            if (output.length === 0) {
-            this.addLine('(empty directory)');
-            } else {
-            const line = document.createElement('p');
-            line.innerHTML = output.join('  ');
-            this.terminalLines.appendChild(line);
-            }
-        },
-        
-        // Change directory
-        changeDirectory: function(dir) {
-            if (dir === '~') {
-            this.currentDir = '~';
-            return;
-            }
-            
-            if (dir === '.') {
-            return;
-            }
-            
-            if (dir === '..') {
-            if (this.currentDir === '~') return;
-            const parts = this.currentDir.split('/');
-            parts.pop();
-            this.currentDir = parts.join('/') || '~';
-            return;
-            }
-            
-            // Handle relative path
-            let targetPath = dir;
-            if (!dir.startsWith('/') && !dir.startsWith('~')) {
-            targetPath = this.currentDir === '~' ? 
-                `~/${dir}` : `${this.currentDir}/${dir}`;
-            }
-            
-            const targetDir = this.getObjectAtPath(targetPath);
-            if (!targetDir) {
-            this.addLine(`cd: ${dir}: No such file or directory`);
-            return;
-            }
-            
-            if (targetDir.type !== 'dir') {
-            this.addLine(`cd: ${dir}: Not a directory`);
-            return;
-            }
-            
-            // Update current directory
-            if (dir.startsWith('~')) {
-            this.currentDir = dir;
-            } else if (dir.startsWith('/')) {
-            this.currentDir = dir;
-            } else {
-            this.currentDir = this.currentDir === '~' ? 
-                `~/${dir}` : `${this.currentDir}/${dir}`;
-            }
-        },
-        
-        // Display file contents
-        catFile: function(filename) {
-            const target = this.getObjectAtPath(filename);
-            if (!target) {
-            this.addLine(`cat: ${filename}: No such file or directory`);
-            return;
-            }
-            
-            if (target.type !== 'file') {
-            this.addLine(`cat: ${filename}: Is a directory`);
-            return;
-            }
-            
-            // Show file contents with line breaks
-            const lines = target.content.split('\n');
-            lines.forEach(line => this.addLine(line));
-        },
-        
-        // Clear the terminal
-        clearTerminal: function() {
-            this.terminalLines.innerHTML = '';
-        },
-        
-        // Run network simulation
-        runNetworkSim: function() {
-            this.addLine('Starting network simulation...');
-            this.addLine('Initializing nodes...');
-            this.addLine('Loading topology...');
-            this.addLine('Ready!');
-            
-            // Show the network simulation section
-            setTimeout(() => {
-            document.getElementById('network-simulation').style.display = 'block';
-            document.getElementById('network-simulation').scrollIntoView({
-                behavior: 'smooth'
-            });
-            
-            // Reinitialize the network simulation if needed
-            if (typeof initNetworkSimulation === 'function') {
-                initNetworkSimulation();
-            }
-            }, 1000);
-        }
-        };
-        
-        // Initialize terminal
-        terminal.init();
-    });
-    </script>
-        
-        <section id="about">
-=======
-    <meta name="description" content="Network Engineer & Developer portfolio showcasing internetworking, cloud technology, and Python programming expertise">
-    <meta name="keywords" content="network engineer, python developer, cloud architect, internetworking, DevOps">
-    <meta name="author" content="Adam Boyko">
-    <meta name="robots" content="index, follow">
-    
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="Adam Boyko - Network Engineer & Developer">
-    <meta property="og:description" content="Building the connections that power the digital world">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://implicitdeny.dev">
-    <meta property="og:image" content="https://implicitdeny.dev/og-image.png">
-    
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Adam Boyko - Network Engineer & Developer">
-    <meta name="twitter:description" content="Building the connections that power the digital world">
-    <meta name="twitter:image" content="https://implicitdeny.dev/twitter-image.png">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-    
-    <title>Adam Boyko - Network Engineer & Developer Portfolio</title>
-    
-    <!-- Preload critical resources -->
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
-    <link rel="preload" href="styles.css" as="style">
-    <link rel="stylesheet" href="styles.css">
-    
-    <!-- Security headers -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self' https:;">
-    
-    <!-- JSON-LD Structured Data -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Adam Boyko",
-        "jobTitle": "Network Engineer & Developer",
-        "url": "https://implicitdeny.dev",
-        "sameAs": [
-            "https://github.com/adboyko",
-            "https://linkedin.com/in/adamnboyko"
-        ],
-        "knowsAbout": ["Network Engineering", "Cloud Technology", "Python Programming", "DevOps"],
-        "description": "Network engineer and developer specializing in internetworking, cloud infrastructure, and Python development"
-    }
-    </script>
-</head>
-<body>
-    <!-- Skip to main content link for accessibility -->
-    <a href="#main-content" class="sr-only">Skip to main content</a>
-    
-    <div class="container">
-        <header role="banner">
-            <h1>Adam Boyko - Network Engineer & Developer</h1>
-            <p>Building the connections that power the digital world</p>
-        </header>
-        
-        <main id="main-content" role="main">
-            <section id="terminal-intro" class="terminal" aria-label="Interactive Terminal">
-                <div class="terminal-header" aria-hidden="true">
-                    <div class="terminal-button" title="Close"></div>
-                    <div class="terminal-button" title="Minimize"></div>
-                    <div class="terminal-button" title="Maximize"></div>
-                </div>
-                <div class="terminal-text" id="terminal-output" role="log" aria-live="polite" aria-label="Terminal output">
-                    <p>Welcome to the interactive terminal. Type 'help' for available commands.</p>
-                    <p><span class="prompt">$</span> whoami</p>
-                    <p>network_engineer | cloud_architect | python_developer</p>
-                    <div id="terminal-lines"></div>
-                    <div id="input-line">
-                        <span class="prompt">$</span> <span id="command-input"></span><span class="blink" id="cursor">_</span>
-                    </div>
-                </div>
-            </section>
-            
-            <section id="network-simulation" style="display: none;" aria-label="Network Topology Simulation">
-                <h2>Network Topology Simulation</h2>
-                <p class="text-center">Interactive network simulation with multiple nodes and protocols</p>
-                <div class="network-viz" id="network-viz" role="application" aria-label="Interactive network topology visualization">
-                    <!-- Nodes and connections will be added via JavaScript -->
-                    <div id="tooltip" class="tooltip" role="tooltip" aria-hidden="true"></div>
-                </div>
-                
-                <div class="network-controls">
-                    <button class="btn" id="send-tcp">Send TCP Packet</button>
-                    <button class="btn" id="send-udp">Send UDP Packet</button>
-                    <button class="btn" id="simulate-error">Simulate Error</button>
-                    <button class="btn" id="reset-network">Reset Network</button>
-                </div>
-                
-                <div class="checkbox-container">
-                    <input type="checkbox" id="auto-traffic" name="auto-traffic" aria-describedby="auto-traffic-desc">
-                    <label for="auto-traffic">Simulate background traffic</label>
-                    <div id="auto-traffic-desc" class="sr-only">Toggle automatic background network traffic simulation</div>
-                </div>
-                
-                <div class="stat-panel" id="network-stats">
-                    <h3>Network Statistics</h3>
-                    <div class="stat-row">
-                        <span>Packets Sent:</span>
-                        <span id="packets-sent">0</span>
-                    </div>
-                    <div class="stat-row">
-                        <span>Packets Received:</span>
-                        <span id="packets-received">0</span>
-                    </div>
-                    <div class="stat-row">
-                        <span>Packet Loss:</span>
-                        <span id="packet-loss">0%</span>
-                    </div>
-                    <div class="stat-row">
-                        <span>Average Latency:</span>
-                        <span id="avg-latency">0ms</span>
-                    </div>
-                    <div class="stat-row">
-                        <span>Network Load:</span>
-                        <span id="network-load">Low</span>
-                    </div>
-                </div>
-            </section>
-        </main>
-        
-        <section id="about" aria-label="About Me">
->>>>>>> 03d89a4 (Major website improvements: modern web standards, performance, and accessibility)
-            <h2>About Me</h2>
-            <p>I am passionate about internetworking and cloud technology, with expertise in general computing and programming. Python is my specialty, and I enjoy solving complex problems through code.</p>
-            
-            <div class="interests">
-<<<<<<< HEAD
-                <div class="interest-card">
+            <div class="skills-grid">
+                <div class="skill-card">
                     <i class="fas fa-network-wired"></i>
-                    <h3>Internetworking</h3>
-                    <p>Experienced in network architectures, routing protocols, and network security solutions.</p>
+                    <h3>Network Engineering</h3>
+                    <p>CCNP certified with expertise in routing, switching, and network security protocols</p>
                 </div>
-                <div class="interest-card">
+                <div class="skill-card">
                     <i class="fas fa-cloud"></i>
-                    <h3>Cloud Technology</h3>
-                    <p>Proficient in cloud platforms, infrastructure as code, and cloud-native architectures.</p>
+                    <h3>Cloud Architecture</h3>
+                    <p>Designing and implementing scalable cloud solutions across major platforms</p>
                 </div>
-                <div class="interest-card">
-                    <i class="fas fa-laptop-code"></i>
-                    <h3>General Computing</h3>
-                    <p>Deep knowledge of computing systems, operating systems, and computer architecture.</p>
-                </div>
-                <div class="interest-card">
+                <div class="skill-card">
                     <i class="fab fa-python"></i>
-                    <h3>Python Programming</h3>
-                    <p>Expert in Python with experience in automation, data analysis, and application development.</p>
+                    <h3>Python Development</h3>
+                    <p>Automation, network programming, and infrastructure as code solutions</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-cogs"></i>
+                    <h3>Infrastructure</h3>
+                    <p>DevOps practices, CI/CD pipelines, and system administration</p>
                 </div>
             </div>
-        </section>
-        
-        <section id="connect">
-            <h2>Connect With Me</h2>
-            <p class="text-center">Find me on these platforms</p>
-            <div class="social-links" id="social-links">
-=======
-                <article class="interest-card">
-                    <i class="fas fa-network-wired" aria-hidden="true"></i>
-                    <h3>Internetworking</h3>
-                    <p>Experienced in network architectures, routing protocols (OSPF, BGP, MPLS), and network security solutions.</p>
-                </article>
-                <article class="interest-card">
-                    <i class="fas fa-cloud" aria-hidden="true"></i>
-                    <h3>Cloud Technology</h3>
-                    <p>Proficient in cloud platforms (AWS, Azure), infrastructure as code, and cloud-native architectures.</p>
-                </article>
-                <article class="interest-card">
-                    <i class="fas fa-laptop-code" aria-hidden="true"></i>
-                    <h3>General Computing</h3>
-                    <p>Deep knowledge of computing systems, operating systems, and computer architecture fundamentals.</p>
-                </article>
-                <article class="interest-card">
-                    <i class="fab fa-python" aria-hidden="true"></i>
-                    <h3>Python Programming</h3>
-                    <p>Expert in Python with experience in automation, data analysis, web development, and DevOps tooling.</p>
-                </article>
+            
+            <div class="network-demo">
+                <h3>Data Flow Visualization</h3>
+                <p>Watch packets traverse from user to cloud ☁️</p>
+                <div class="network-visual">
+                    <div class="network-node user">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="network-node router">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <div class="network-node cloud">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <div class="connection-line"></div>
+                    <div class="data-packet"></div>
+                </div>
+                <small style="color: #888;">Network packets flowing through enterprise infrastructure</small>
             </div>
-        </section>
-        
-        <section id="connect" aria-label="Connect With Me">
-            <h2>Connect With Me</h2>
-            <p class="text-center">Find me on these platforms</p>
-            <div class="social-links" id="social-links" role="list" aria-label="Social media profiles">
->>>>>>> 03d89a4 (Major website improvements: modern web standards, performance, and accessibility)
-                <!-- Social links will be populated from JavaScript -->
+            
+            <div class="social-section">
+                <h2>Connect With Me</h2>
+                <div class="social-links">
+                    <a href="https://github.com/adboyko" target="_blank" class="social-link" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://linkedin.com/in/adamnboyko" target="_blank" class="social-link" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
             </div>
-        </section>
+        </div>
         
-<<<<<<< HEAD
         <footer>
-            <p>&copy; <script>document.write(new Date().getFullYear())</script> | Built with <i class="fas fa-heart" style="color: #64ffda;"></i> and a lot of packets</p>
+            <p>&copy; <span id="current-year"></span> Adam Boyko | Routing packets and deploying clouds ☁️</p>
         </footer>
     </div>
 
     <script>
-        // Social media links array
-        // Format: [platform_name, icon_class, url]
-        const socialLinks = [
-            // Replace these examples with your actual social links
-            ['GitHub', 'fab fa-github', 'https://github.com/adboyko'],
-            ['LinkedIn', 'fab fa-linkedin-in', 'https://linkedin.com/in/adamnboyko'],
-            // Add more social links as needed
-        ];
-
-        // Populate social links
-        function populateSocialLinks() {
-            const socialLinksContainer = document.getElementById('social-links');
-            
-            socialLinks.forEach(link => {
-                const [name, iconClass, url] = link;
-                const socialLink = document.createElement('a');
-                socialLink.href = url;
-                socialLink.target = '_blank';
-                socialLink.className = 'social-icon';
-                socialLink.setAttribute('aria-label', name);
-                socialLink.innerHTML = `<i class="${iconClass}"></i>`;
-                socialLinksContainer.appendChild(socialLink);
-            });
-        }
-
-        // Simple Network Simulation
-        function initSimpleNetworkSimulation() {
-            const sendButton = document.getElementById('send-simple-packet');
-            const resetButton = document.getElementById('reset-simple-packet');
-            const packet = document.getElementById('simple-packet');
-            const packetInfo = document.getElementById('packet-info');
-            
-            // Check if all required elements exist
-            if (!sendButton || !resetButton || !packet || !packetInfo) {
-                console.warn('Simple network simulation elements not found. Skipping initialization.');
-                return;
-            }
-            
-            sendButton.addEventListener('click', () => {
-                // Animate packet moving from Router A to Router B
-                packet.style.left = '85%';
-                packetInfo.innerHTML = '<p>Packet status: Sending... <i class="fas fa-spinner fa-spin"></i></p>';
-                
-                setTimeout(() => {
-                    packetInfo.innerHTML = '<p>Packet status: Delivered! <i class="fas fa-check-circle"></i></p>';
-                }, 2000);
-            });
-            
-            resetButton.addEventListener('click', () => {
-                // Reset packet position
-                packet.style.left = '15%';
-                packetInfo.innerHTML = '<p>Packet status: Ready to send</p>';
-            });
-        }
-
-        // Enhanced Network Simulation
-        function initNetworkSimulation() {
-            const networkViz = document.getElementById('network-viz');
-            const tcpButton = document.getElementById('send-tcp');
-            const udpButton = document.getElementById('send-udp');
-            const errorButton = document.getElementById('simulate-error');
-            const resetButton = document.getElementById('reset-network');
-            const autoTraffic = document.getElementById('auto-traffic');
-            const tooltip = document.getElementById('tooltip');
-            
-            // Stats elements
-            const packetsSent = document.getElementById('packets-sent');
-            const packetsReceived = document.getElementById('packets-received');
-            const packetLoss = document.getElementById('packet-loss');
-            const avgLatency = document.getElementById('avg-latency');
-            const networkLoad = document.getElementById('network-load');
-            
-            // Network stats
-            let stats = {
-                sent: 0,
-                received: 0,
-                loss: 0,
-                latencySum: 0,
-                latencyCount: 0,
-                autoTrafficInterval: null
-            };
-            
-            // Create network topology
-            const nodes = [
-                { id: 'client1', type: 'client', label: 'C1', x: 10, y: 30 },
-                { id: 'client2', type: 'client', label: 'C2', x: 10, y: 70 },
-                { id: 'router1', type: 'router', label: 'R1', x: 30, y: 50 },
-                { id: 'router2', type: 'router', label: 'R2', x: 50, y: 30 },
-                { id: 'router3', type: 'router', label: 'R3', x: 50, y: 70 },
-                { id: 'router4', type: 'router', label: 'R4', x: 70, y: 50 },
-                { id: 'server1', type: 'server', label: 'S1', x: 90, y: 30 },
-                { id: 'server2', type: 'server', label: 'S2', x: 90, y: 70 }
-            ];
-            
-            const connections = [
-                { from: 'client1', to: 'router1', reliability: 0.98 },
-                { from: 'client2', to: 'router1', reliability: 0.97 },
-                { from: 'router1', to: 'router2', reliability: 0.99 },
-                { from: 'router1', to: 'router3', reliability: 0.99 },
-                { from: 'router2', to: 'router4', reliability: 0.97 },
-                { from: 'router3', to: 'router4', reliability: 0.98 },
-                { from: 'router4', to: 'server1', reliability: 0.99 },
-                { from: 'router4', to: 'server2', reliability: 0.98 }
-            ];
-            
-            // Create nodes
-            nodes.forEach(node => {
-                const nodeEl = document.createElement('div');
-                nodeEl.className = `node node-${node.type}`;
-                nodeEl.id = node.id;
-                nodeEl.textContent = node.label;
-                // Position from center of the node
-                nodeEl.style.left = `calc(${node.x}% - 30px)`;  // 30px is half the width
-                nodeEl.style.top = `calc(${node.y}% - 30px)`;   // 30px is half the height
-                
-                // Add tooltip info
-                nodeEl.addEventListener('mouseenter', (e) => {
-                    showTooltip(e, `<b>${getNodeTypeName(node.type)}: ${node.label}</b><br>
-                                  Status: Online<br>
-                                  IP: 192.168.${node.x}.${node.y}<br>
-                                  ${node.type === 'router' ? 'Routing Protocol: OSPF<br>' : ''}
-                                  ${node.type === 'server' ? 'Services: HTTP, DNS<br>' : ''}
-                                  ${node.type === 'client' ? 'OS: Linux<br>' : ''}`);
-                });
-                
-                nodeEl.addEventListener('mouseleave', hideTooltip);
-                
-                networkViz.appendChild(nodeEl);
-            });
-            // Create connections
-            connections.forEach(conn => {
-                const fromEl = document.getElementById(conn.from);
-                const toEl = document.getElementById(conn.to);
-                
-                if (!fromEl || !toEl) return;
-                
-                const connEl = document.createElement('div');
-                connEl.className = 'connection';
-                connEl.id = `conn-${conn.from}-${conn.to}`;
-                
-                // Get positions in pixels (accounting for the node's center)
-                const fromRect = fromEl.getBoundingClientRect();
-                const toRect = toEl.getBoundingClientRect();
-                const vizRect = networkViz.getBoundingClientRect();
-                
-                // Calculate center points relative to the container
-                const x1 = fromRect.left + fromRect.width/2 - vizRect.left;
-                const y1 = fromRect.top + fromRect.height/2 - vizRect.top;
-                const x2 = toRect.left + toRect.width/2 - vizRect.left;
-                const y2 = toRect.top + toRect.height/2 - vizRect.top;
-                
-                // Calculate length and angle
-                const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-                const angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
-                
-                // Position using absolute pixels
-                connEl.style.width = `${length}px`;
-                connEl.style.left = `${x1}px`;
-                connEl.style.top = `${y1}px`;
-                connEl.style.transformOrigin = 'left center';
-                connEl.style.transform = `rotate(${angle}deg)`;
-                
-                // Add tooltip info
-                connEl.addEventListener('mouseenter', (e) => {
-                    showTooltip(e, `<b>Connection</b><br>
-                                  From: ${conn.from} To: ${conn.to}<br>
-                                  Bandwidth: 1Gbps<br>
-                                  Reliability: ${conn.reliability * 100}%<br>
-                                  Current Load: ${getRandomInt(10, 40)}%`);
-                });
-                
-                connEl.addEventListener('mouseleave', hideTooltip);
-                
-                networkViz.appendChild(connEl);
-            });
-            
-            // Send TCP Packet function
-            tcpButton.addEventListener('click', () => {
-                sendPacket('tcp', 'client1', 'server1');
-            });
-            
-            // Send UDP Packet function
-            udpButton.addEventListener('click', () => {
-                sendPacket('udp', 'client2', 'server2');
-            });
-            
-            // Simulate error function
-            errorButton.addEventListener('click', () => {
-                sendPacket('error', 'client1', 'server2');
-            });
-            
-            // Reset network function
-            resetButton.addEventListener('click', () => {
-                // Remove all packets
-                const packets = document.querySelectorAll('.packet');
-                packets.forEach(packet => packet.remove());
-                
-                // Reset connections
-                const connectionElements = document.querySelectorAll('.connection');
-                connectionElements.forEach(conn => conn.classList.remove('active'));
-                
-                // Reset stats
-                stats = {
-                    sent: 0,
-                    received: 0,
-                    loss: 0,
-                    latencySum: 0,
-                    latencyCount: 0
-                };
-                updateStats();
-                
-                // Turn off auto traffic if running
-                if (stats.autoTrafficInterval) {
-                    clearInterval(stats.autoTrafficInterval);
-                    stats.autoTrafficInterval = null;
-                    autoTraffic.checked = false;
-                }
-            });
-            
-            // Auto traffic toggle
-            autoTraffic.addEventListener('change', (e) => {
-                if (e.target.checked) {
-                    stats.autoTrafficInterval = setInterval(() => {
-                        const sourceTypes = ['client1', 'client2'];
-                        const destTypes = ['server1', 'server2'];
-                        const packetTypes = ['tcp', 'udp'];
-                        
-                        const source = sourceTypes[getRandomInt(0, sourceTypes.length - 1)];
-                        const dest = destTypes[getRandomInt(0, destTypes.length - 1)];
-                        const type = packetTypes[getRandomInt(0, packetTypes.length - 1)];
-                        
-                        sendPacket(type, source, dest);
-                    }, 2000);
-                } else if (stats.autoTrafficInterval) {
-                    clearInterval(stats.autoTrafficInterval);
-                    stats.autoTrafficInterval = null;
-                }
-            });
-            
-            // Send a packet across the network
-            function sendPacket(type, from, to) {
-                const fromNode = document.getElementById(from);
-                const toNode = document.getElementById(to);
-                
-                if (!fromNode || !toNode) return;
-                
-                const packet = document.createElement('div');
-                packet.className = `packet packet-${type}`;
-                
-                // Position at start node
-                const fromRect = fromNode.getBoundingClientRect();
-                const vizRect = networkViz.getBoundingClientRect();
-                
-                packet.style.left = `${fromNode.offsetLeft + fromNode.offsetWidth / 2}px`;
-                packet.style.top = `${fromNode.offsetTop + fromNode.offsetHeight / 2}px`;
-                
-                networkViz.appendChild(packet);
-                
-                // Update stats
-                stats.sent++;
-                
-                // Define path (using Dijkstra's algorithm in a real implementation)
-                let path;
-                if (from === 'client1' && to === 'server1') {
-                    path = ['client1', 'router1', 'router2', 'router4', 'server1'];
-                } else if (from === 'client2' && to === 'server2') {
-                    path = ['client2', 'router1', 'router3', 'router4', 'server2'];
-                } else if (from === 'client1' && to === 'server2') {
-                    path = ['client1', 'router1', 'router3', 'router4', 'server2'];
-                } else {
-                    path = ['client2', 'router1', 'router2', 'router4', 'server1'];
-                }
-                
-                // Simulate packet traversal
-                animatePacketAlongPath(packet, path, type);
-            }
-            
-            // Animate packet along a path
-            function animatePacketAlongPath(packet, path, type) {
-                let currentStep = 0;
-                const totalSteps = path.length - 1;
-                
-                function nextStep() {
-                    if (currentStep >= totalSteps) {
-                        // Reached destination
-                        setTimeout(() => {
-                            packet.remove();
-                            if (type !== 'error') {
-                                stats.received++;
-                                const latency = getRandomInt(30, 150);
-                                stats.latencySum += latency;
-                                stats.latencyCount++;
-                            }
-                            updateStats();
-                        }, 500);
-                        return;
-                    }
-                    
-                    const fromId = path[currentStep];
-                    const toId = path[currentStep + 1];
-                    
-                    // Get connection
-                    const connId = `conn-${fromId}-${toId}`;
-                    const conn = document.getElementById(connId);
-                    
-                    // If no direct connection, try reverse
-                    const connReverse = !conn ? document.getElementById(`conn-${toId}-${fromId}`) : null;
-                    const activeConn = conn || connReverse;
-                    
-                    if (activeConn) {
-                        // Highlight active connection
-                        activeConn.classList.add('active');
-                        
-                        // Determine if packet will be lost based on connection reliability
-                        const connectionInfo = connections.find(c => 
-                            (c.from === fromId && c.to === toId) || 
-                            (c.from === toId && c.to === fromId));
-                        
-                        const reliability = connectionInfo ? connectionInfo.reliability : 0.95;
-                        const packetLost = Math.random() > reliability || type === 'error';
-                        
-                        // Get target node
-                        const targetNode = document.getElementById(toId);
-                        
-                        if (targetNode && !packetLost) {
-                            // Animate to next node
-                            const duration = getRandomInt(300, 700); // Vary speed to simulate network conditions
-                            
-                            packet.style.transition = `left ${duration}ms ease, top ${duration}ms ease`;
-                            packet.style.left = `${targetNode.offsetLeft + targetNode.offsetWidth / 2}px`;
-                            packet.style.top = `${targetNode.offsetTop + targetNode.offsetHeight / 2}px`;
-                            
-                            setTimeout(() => {
-                                activeConn.classList.remove('active');
-                                currentStep++;
-                                nextStep();
-                            }, duration + 100);
-                        } else {
-                            // Simulate packet loss
-                            packet.className = 'packet packet-error';
-                            setTimeout(() => {
-                                activeConn.classList.remove('active');
-                                packet.remove();
-                                updateStats();
-                            }, 300);
-                        }
-                    } else {
-                        // No connection found, remove packet
-                        packet.remove();
-                    }
-                }
-                
-                // Start animation
-                nextStep();
-            }
-            
-            // Update network statistics display
-            function updateStats() {
-                packetsSent.textContent = stats.sent;
-                packetsReceived.textContent = stats.received;
-                
-                const lossRate = stats.sent > 0 
-                    ? Math.round((1 - stats.received / stats.sent) * 100) 
-                    : 0;
-                packetLoss.textContent = `${lossRate}%`;
-                
-                const avgLatencyValue = stats.latencyCount > 0 
-                    ? Math.round(stats.latencySum / stats.latencyCount) 
-                    : 0;
-                avgLatency.textContent = `${avgLatencyValue}ms`;
-                
-                let loadLevel;
-                if (lossRate > 15) loadLevel = 'High';
-                else if (lossRate > 5) loadLevel = 'Medium';
-                else loadLevel = 'Low';
-                networkLoad.textContent = loadLevel;
-            }
-            
-            // Tooltip functions
-            function showTooltip(event, content) {
-                tooltip.innerHTML = content;
-                tooltip.style.left = `${event.pageX - networkViz.offsetLeft + 10}px`;
-                tooltip.style.top = `${event.pageY - networkViz.offsetTop + 10}px`;
-                tooltip.style.opacity = 1;
-            }
-            
-            function hideTooltip() {
-                tooltip.style.opacity = 0;
-            }
-            
-            // Helper functions
-            function getRandomInt(min, max) {
-                return Math.floor(Math.random() * (max - min + 1)) + min;
-            }
-            
-            function getNodeTypeName(type) {
-                switch(type) {
-                    case 'router': return 'Router';
-                    case 'server': return 'Server';
-                    case 'client': return 'Client';
-                    default: return type;
-                }
-            }
-        }
-        
-        // Initialize when DOM is loaded
-        document.addEventListener('DOMContentLoaded', () => {
-            populateSocialLinks();
-            initNetworkSimulation();
-            initSimpleNetworkSimulation();
-        });
+        // Set current year
+        document.getElementById('current-year').textContent = new Date().getFullYear();
     </script>
 </body>
 </html>
-=======
-        <footer role="contentinfo">
-            <p>&copy; <span id="current-year">2024</span> Adam Boyko | Built with <i class="fas fa-heart" style="color: #64ffda;" aria-hidden="true"></i> and a lot of packets</p>
-        </footer>
-    </div>
-    
-    <!-- Load external JavaScript -->
-    <script src="script.js" defer></script>
-    
-    <!-- Update current year dynamically -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('current-year').textContent = new Date().getFullYear();
-        });
-    </script>
-</body>
-</html>
->>>>>>> 03d89a4 (Major website improvements: modern web standards, performance, and accessibility)
