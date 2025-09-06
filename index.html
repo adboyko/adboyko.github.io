@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
     <title>Network Engineer & Developer Profile</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -1121,10 +1122,142 @@
     </script>
         
         <section id="about">
+=======
+    <meta name="description" content="Network Engineer & Developer portfolio showcasing internetworking, cloud technology, and Python programming expertise">
+    <meta name="keywords" content="network engineer, python developer, cloud architect, internetworking, DevOps">
+    <meta name="author" content="Adam Boyko">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Adam Boyko - Network Engineer & Developer">
+    <meta property="og:description" content="Building the connections that power the digital world">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://implicitdeny.dev">
+    <meta property="og:image" content="https://implicitdeny.dev/og-image.png">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Adam Boyko - Network Engineer & Developer">
+    <meta name="twitter:description" content="Building the connections that power the digital world">
+    <meta name="twitter:image" content="https://implicitdeny.dev/twitter-image.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    
+    <title>Adam Boyko - Network Engineer & Developer Portfolio</title>
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Security headers -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self' https:;">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Adam Boyko",
+        "jobTitle": "Network Engineer & Developer",
+        "url": "https://implicitdeny.dev",
+        "sameAs": [
+            "https://github.com/adboyko",
+            "https://linkedin.com/in/adamnboyko"
+        ],
+        "knowsAbout": ["Network Engineering", "Cloud Technology", "Python Programming", "DevOps"],
+        "description": "Network engineer and developer specializing in internetworking, cloud infrastructure, and Python development"
+    }
+    </script>
+</head>
+<body>
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="sr-only">Skip to main content</a>
+    
+    <div class="container">
+        <header role="banner">
+            <h1>Adam Boyko - Network Engineer & Developer</h1>
+            <p>Building the connections that power the digital world</p>
+        </header>
+        
+        <main id="main-content" role="main">
+            <section id="terminal-intro" class="terminal" aria-label="Interactive Terminal">
+                <div class="terminal-header" aria-hidden="true">
+                    <div class="terminal-button" title="Close"></div>
+                    <div class="terminal-button" title="Minimize"></div>
+                    <div class="terminal-button" title="Maximize"></div>
+                </div>
+                <div class="terminal-text" id="terminal-output" role="log" aria-live="polite" aria-label="Terminal output">
+                    <p>Welcome to the interactive terminal. Type 'help' for available commands.</p>
+                    <p><span class="prompt">$</span> whoami</p>
+                    <p>network_engineer | cloud_architect | python_developer</p>
+                    <div id="terminal-lines"></div>
+                    <div id="input-line">
+                        <span class="prompt">$</span> <span id="command-input"></span><span class="blink" id="cursor">_</span>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="network-simulation" style="display: none;" aria-label="Network Topology Simulation">
+                <h2>Network Topology Simulation</h2>
+                <p class="text-center">Interactive network simulation with multiple nodes and protocols</p>
+                <div class="network-viz" id="network-viz" role="application" aria-label="Interactive network topology visualization">
+                    <!-- Nodes and connections will be added via JavaScript -->
+                    <div id="tooltip" class="tooltip" role="tooltip" aria-hidden="true"></div>
+                </div>
+                
+                <div class="network-controls">
+                    <button class="btn" id="send-tcp">Send TCP Packet</button>
+                    <button class="btn" id="send-udp">Send UDP Packet</button>
+                    <button class="btn" id="simulate-error">Simulate Error</button>
+                    <button class="btn" id="reset-network">Reset Network</button>
+                </div>
+                
+                <div class="checkbox-container">
+                    <input type="checkbox" id="auto-traffic" name="auto-traffic" aria-describedby="auto-traffic-desc">
+                    <label for="auto-traffic">Simulate background traffic</label>
+                    <div id="auto-traffic-desc" class="sr-only">Toggle automatic background network traffic simulation</div>
+                </div>
+                
+                <div class="stat-panel" id="network-stats">
+                    <h3>Network Statistics</h3>
+                    <div class="stat-row">
+                        <span>Packets Sent:</span>
+                        <span id="packets-sent">0</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>Packets Received:</span>
+                        <span id="packets-received">0</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>Packet Loss:</span>
+                        <span id="packet-loss">0%</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>Average Latency:</span>
+                        <span id="avg-latency">0ms</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>Network Load:</span>
+                        <span id="network-load">Low</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <section id="about" aria-label="About Me">
+>>>>>>> 03d89a4 (Major website improvements: modern web standards, performance, and accessibility)
             <h2>About Me</h2>
             <p>I am passionate about internetworking and cloud technology, with expertise in general computing and programming. Python is my specialty, and I enjoy solving complex problems through code.</p>
             
             <div class="interests">
+<<<<<<< HEAD
                 <div class="interest-card">
                     <i class="fas fa-network-wired"></i>
                     <h3>Internetworking</h3>
@@ -1152,10 +1285,40 @@
             <h2>Connect With Me</h2>
             <p class="text-center">Find me on these platforms</p>
             <div class="social-links" id="social-links">
+=======
+                <article class="interest-card">
+                    <i class="fas fa-network-wired" aria-hidden="true"></i>
+                    <h3>Internetworking</h3>
+                    <p>Experienced in network architectures, routing protocols (OSPF, BGP, MPLS), and network security solutions.</p>
+                </article>
+                <article class="interest-card">
+                    <i class="fas fa-cloud" aria-hidden="true"></i>
+                    <h3>Cloud Technology</h3>
+                    <p>Proficient in cloud platforms (AWS, Azure), infrastructure as code, and cloud-native architectures.</p>
+                </article>
+                <article class="interest-card">
+                    <i class="fas fa-laptop-code" aria-hidden="true"></i>
+                    <h3>General Computing</h3>
+                    <p>Deep knowledge of computing systems, operating systems, and computer architecture fundamentals.</p>
+                </article>
+                <article class="interest-card">
+                    <i class="fab fa-python" aria-hidden="true"></i>
+                    <h3>Python Programming</h3>
+                    <p>Expert in Python with experience in automation, data analysis, web development, and DevOps tooling.</p>
+                </article>
+            </div>
+        </section>
+        
+        <section id="connect" aria-label="Connect With Me">
+            <h2>Connect With Me</h2>
+            <p class="text-center">Find me on these platforms</p>
+            <div class="social-links" id="social-links" role="list" aria-label="Social media profiles">
+>>>>>>> 03d89a4 (Major website improvements: modern web standards, performance, and accessibility)
                 <!-- Social links will be populated from JavaScript -->
             </div>
         </section>
         
+<<<<<<< HEAD
         <footer>
             <p>&copy; <script>document.write(new Date().getFullYear())</script> | Built with <i class="fas fa-heart" style="color: #64ffda;"></i> and a lot of packets</p>
         </footer>
@@ -1576,3 +1739,21 @@
     </script>
 </body>
 </html>
+=======
+        <footer role="contentinfo">
+            <p>&copy; <span id="current-year">2024</span> Adam Boyko | Built with <i class="fas fa-heart" style="color: #64ffda;" aria-hidden="true"></i> and a lot of packets</p>
+        </footer>
+    </div>
+    
+    <!-- Load external JavaScript -->
+    <script src="script.js" defer></script>
+    
+    <!-- Update current year dynamically -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+        });
+    </script>
+</body>
+</html>
+>>>>>>> 03d89a4 (Major website improvements: modern web standards, performance, and accessibility)
