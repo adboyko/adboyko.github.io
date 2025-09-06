@@ -64,6 +64,15 @@
             margin-bottom: 20px;
         }
 
+        .cert-badges {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
         .cert-badge {
             display: inline-block;
             background: rgba(255, 255, 255, 0.2);
@@ -74,6 +83,24 @@
             margin: 5px;
             backdrop-filter: blur(5px);
             border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .cisco-badge {
+            width: 120px;
+            height: 120px;
+            background: white;
+            border-radius: 15px;
+            padding: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cisco-badge img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
 
         /* Main content */
@@ -154,79 +181,95 @@
             opacity: 0.95;
         }
 
-        /* Fun network animation */
-        .network-demo {
-            background: #f8f9ff;
+        /* Terminal */
+        .terminal-section {
+            background: #1a1a2e;
             border-radius: 15px;
-            padding: 30px;
+            padding: 0;
             margin: 40px 0;
-            text-align: center;
-            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             overflow: hidden;
         }
 
-        .network-demo h3 {
-            color: #667eea;
-            margin-bottom: 20px;
-            font-size: 1.3rem;
-        }
-
-        .network-visual {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            margin: 30px 0;
-            position: relative;
-        }
-
-        .network-node {
-            width: 80px;
-            height: 80px;
-            border-radius: 15px;
+        .terminal-header {
+            background: #16213e;
+            padding: 15px 20px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.8rem;
-            position: relative;
-            z-index: 2;
+            border-bottom: 1px solid #0f3460;
         }
 
-        .router {
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            animation: pulse 2s ease-in-out infinite;
+        .terminal-buttons {
+            display: flex;
+            gap: 8px;
+            margin-right: 15px;
         }
 
-        .cloud {
-            background: linear-gradient(45deg, #4facfe, #00f2fe);
-        }
-
-        .user {
-            background: linear-gradient(45deg, #43e97b, #38f9d7);
-        }
-
-        .connection-line {
-            position: absolute;
-            top: 50%;
-            left: 15%;
-            right: 15%;
-            height: 4px;
-            background: linear-gradient(90deg, #667eea, #4facfe);
-            border-radius: 2px;
-            z-index: 1;
-        }
-
-        .data-packet {
-            position: absolute;
-            width: 15px;
-            height: 15px;
-            background: #ff6b6b;
+        .terminal-button {
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
-            top: 50%;
-            transform: translateY(-50%);
-            animation: movePacket 3s ease-in-out infinite;
-            z-index: 3;
-            box-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+            background: #ff5f56;
+        }
+
+        .terminal-button:nth-child(2) {
+            background: #ffbd2e;
+        }
+
+        .terminal-button:nth-child(3) {
+            background: #27c93f;
+        }
+
+        .terminal-title {
+            color: #8892b0;
+            font-size: 0.9rem;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+        }
+
+        .terminal-body {
+            padding: 20px;
+            background: #1a1a2e;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #64ffda;
+            min-height: 200px;
+        }
+
+        .terminal-line {
+            margin-bottom: 8px;
+        }
+
+        .terminal-prompt {
+            color: #64ffda;
+        }
+
+        .terminal-output {
+            color: #ccd6f6;
+            margin-left: 20px;
+        }
+
+        .terminal-input {
+            display: flex;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .terminal-input input {
+            background: transparent;
+            border: none;
+            color: #ccd6f6;
+            font-family: inherit;
+            font-size: inherit;
+            outline: none;
+            flex: 1;
+            padding: 0;
+            margin-left: 5px;
+        }
+
+        .cursor {
+            animation: blink 1s infinite;
+            color: #64ffda;
         }
 
         /* Social links */
@@ -276,15 +319,9 @@
         }
 
         /* Animations */
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        @keyframes movePacket {
-            0% { left: 10%; }
-            50% { left: 50%; }
-            100% { left: 90%; }
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
         }
 
         /* Responsive design */
@@ -292,9 +329,9 @@
             h1 { font-size: 2.2rem; }
             .tagline { font-size: 1.1rem; }
             .main-content { padding: 25px; }
-            .network-visual { flex-direction: column; gap: 20px; }
-            .connection-line { display: none; }
-            .data-packet { display: none; }
+            .cert-badges { flex-direction: column; }
+            .cisco-badge { width: 100px; height: 100px; }
+            .terminal-body { font-size: 0.85rem; padding: 15px; }
         }
     </style>
 </head>
@@ -306,8 +343,13 @@
             </div>
             <h1>Adam Boyko</h1>
             <p class="tagline">Network Engineer & Cloud Architect</p>
-            <div class="cert-badge">
-                <i class="fas fa-certificate"></i> CCNP Enterprise Infrastructure
+            <div class="cert-badges">
+                <div class="cisco-badge">
+                    <img src="https://images.credly.com/images/07f70c56-f067-458e-bbe5-736f055f0cce/CCNP_Enterprise_large.png" alt="CCNP Enterprise Infrastructure Badge">
+                </div>
+                <div class="cert-badge">
+                    <i class="fas fa-certificate"></i> CCNP Enterprise Infrastructure
+                </div>
             </div>
         </header>
         
@@ -344,23 +386,36 @@
                 </div>
             </div>
             
-            <div class="network-demo">
-                <h3>Data Flow Visualization</h3>
-                <p>Watch packets traverse from user to cloud ☁️</p>
-                <div class="network-visual">
-                    <div class="network-node user">
-                        <i class="fas fa-user"></i>
+            <div class="terminal-section">
+                <div class="terminal-header">
+                    <div class="terminal-buttons">
+                        <div class="terminal-button"></div>
+                        <div class="terminal-button"></div>
+                        <div class="terminal-button"></div>
                     </div>
-                    <div class="network-node router">
-                        <i class="fas fa-network-wired"></i>
-                    </div>
-                    <div class="network-node cloud">
-                        <i class="fas fa-cloud"></i>
-                    </div>
-                    <div class="connection-line"></div>
-                    <div class="data-packet"></div>
+                    <div class="terminal-title">adam@network-engineer:~</div>
                 </div>
-                <small style="color: #888;">Network packets flowing through enterprise infrastructure</small>
+                <div class="terminal-body" id="terminal-output">
+                    <div class="terminal-line">
+                        <span class="terminal-prompt">$</span> whoami
+                    </div>
+                    <div class="terminal-line terminal-output">CCNP Enterprise Infrastructure certified network engineer</div>
+                    <div class="terminal-line">
+                        <span class="terminal-prompt">$</span> help
+                    </div>
+                    <div class="terminal-line terminal-output">Available commands:</div>
+                    <div class="terminal-line terminal-output">  github    - Visit my GitHub profile</div>
+                    <div class="terminal-line terminal-output">  linkedin  - Connect with me on LinkedIn</div>
+                    <div class="terminal-line terminal-output">  skills    - Show technical expertise</div>
+                    <div class="terminal-line terminal-output">  contact   - Get in touch</div>
+                    <div class="terminal-line terminal-output">  clear     - Clear terminal</div>
+                    
+                    <div class="terminal-input">
+                        <span class="terminal-prompt">$</span>
+                        <input type="text" id="terminal-input" placeholder="Type a command..." autocomplete="off">
+                        <span class="cursor">|</span>
+                    </div>
+                </div>
             </div>
             
             <div class="social-section">
@@ -384,6 +439,107 @@
     <script>
         // Set current year
         document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Terminal functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const terminalInput = document.getElementById('terminal-input');
+            const terminalOutput = document.getElementById('terminal-output');
+            
+            const commands = {
+                help: {
+                    output: [
+                        'Available commands:',
+                        '  github    - Visit my GitHub profile',
+                        '  linkedin  - Connect with me on LinkedIn', 
+                        '  skills    - Show technical expertise',
+                        '  contact   - Get in touch',
+                        '  clear     - Clear terminal'
+                    ]
+                },
+                github: {
+                    output: ['Opening GitHub profile...'],
+                    action: () => window.open('https://github.com/adboyko', '_blank')
+                },
+                linkedin: {
+                    output: ['Opening LinkedIn profile...'],
+                    action: () => window.open('https://linkedin.com/in/adamnboyko', '_blank')
+                },
+                skills: {
+                    output: [
+                        'Technical Skills:',
+                        '▸ Network Engineering (CCNP Enterprise Infrastructure)',
+                        '▸ Cloud Architecture (AWS, Azure, GCP)',
+                        '▸ Python Development & Automation',
+                        '▸ Infrastructure as Code (Terraform, Ansible)',
+                        '▸ DevOps & CI/CD Pipelines',
+                        '▸ Network Security & Monitoring',
+                        '▸ Enterprise Switching & Routing'
+                    ]
+                },
+                contact: {
+                    output: [
+                        'Contact Information:',
+                        '▸ GitHub: https://github.com/adboyko',
+                        '▸ LinkedIn: https://linkedin.com/in/adamnboyko',
+                        '▸ Professional networking and cloud architecture inquiries welcome!'
+                    ]
+                },
+                whoami: {
+                    output: ['CCNP Enterprise Infrastructure certified network engineer']
+                },
+                clear: {
+                    output: [],
+                    action: () => {
+                        const lines = terminalOutput.querySelectorAll('.terminal-line:not(.terminal-input)');
+                        lines.forEach(line => line.remove());
+                    }
+                }
+            };
+
+            terminalInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    const command = terminalInput.value.trim().toLowerCase();
+                    
+                    // Add command to terminal
+                    const commandLine = document.createElement('div');
+                    commandLine.className = 'terminal-line';
+                    commandLine.innerHTML = `<span class="terminal-prompt">$</span> ${terminalInput.value}`;
+                    terminalOutput.insertBefore(commandLine, terminalOutput.lastElementChild);
+                    
+                    // Process command
+                    if (commands[command]) {
+                        commands[command].output.forEach(line => {
+                            const outputLine = document.createElement('div');
+                            outputLine.className = 'terminal-line terminal-output';
+                            outputLine.textContent = line;
+                            terminalOutput.insertBefore(outputLine, terminalOutput.lastElementChild);
+                        });
+                        
+                        // Execute action if exists
+                        if (commands[command].action) {
+                            setTimeout(commands[command].action, 500);
+                        }
+                    } else if (command !== '') {
+                        const errorLine = document.createElement('div');
+                        errorLine.className = 'terminal-line terminal-output';
+                        errorLine.textContent = `Command not found: ${command}. Type 'help' for available commands.`;
+                        terminalOutput.insertBefore(errorLine, terminalOutput.lastElementChild);
+                    }
+                    
+                    // Clear input and scroll to bottom
+                    terminalInput.value = '';
+                    terminalOutput.scrollTop = terminalOutput.scrollHeight;
+                }
+            });
+
+            // Focus terminal input when clicking anywhere in terminal
+            terminalOutput.addEventListener('click', () => {
+                terminalInput.focus();
+            });
+
+            // Focus on page load
+            terminalInput.focus();
+        });
     </script>
 </body>
 </html>
